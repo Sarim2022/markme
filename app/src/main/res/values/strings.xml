@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">markmyattendence</string>
+    <string name="markMyAttendance">MarkMyAttendance</string>
+    <string name="enter_email">Enter email</string>
+    <string name="enter_password">Enter password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login_as_student">Login as Student</string>
+    <string name="login_as_teacher">Login as Teacher</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="classroom_format">Classroom: %1$s</string>
+    <string name="time_range_format">Time: %1$s - %2$s</string>
+    <string name="teacher_uid_format">Teacher: %1$s</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

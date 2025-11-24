@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:background = "@drawable/bg_tab_rounded_corner_border_light"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        >
+        <ImageView
+            android:id="@+id/cross"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:contentDescription="crossIcone"
+            android:src="@drawable/close"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Class Code"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        android:textColor="@color/mainColor"
+        android:layout_marginBottom="16dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutCode"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColorHint="@color/black"
+
+        android:hint="Class Code (e.g., BDUluUdM)">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextClassCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:inputType="textCapCharacters"
+            android:maxLength="8" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/buttonJoinClass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:padding="16dp"
+        android:textColor="@color/mainColor"
+        android:background="@drawable/google_button_background"
+        android:text="JOIN CLASS"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</LinearLayout>

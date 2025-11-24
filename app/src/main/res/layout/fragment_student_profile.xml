@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F7FB"
+    android:fitsSystemWindows="true"
+    tools:context=".teacher.TeacherProfileFragment">
+
+
+
+    <!-- Profile image -->
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:padding="8dp"
+
+        android:src="@drawable/profilepngx"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Username -->
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="User Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#1A1A1A"
+        app:layout_constraintTop_toBottomOf="@id/ivProfile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/tvEmailUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="useremail@gmail.com"
+        android:textSize="14sp"
+        android:textColor="#6A6A6A"
+        app:layout_constraintTop_toBottomOf="@id/tvUserName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Card Container -->
+    <LinearLayout
+        android:id="@+id/optionsContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="25dp"
+        app:layout_constraintTop_toBottomOf="@id/tvEmailUser"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Each OPTION CARD -->
+        <!-- OPTION 1 : My Info -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/optMyInfo"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="10dp"
+            app:cardElevation="1dp"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@color/bottom_nav_color"
+            app:cardBackgroundColor="@color/white"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="16dp"
+
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/user"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:text="My Info"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- OPTION 2 : My Classes -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/optMyClasses"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="10dp"
+            app:cardElevation="1dp"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@color/bottom_nav_color"
+            app:cardBackgroundColor="@color/white"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:paddingHorizontal="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/classroom"
+                    />
+
+                <TextView
+                    android:layout_marginStart="14dp"
+                    android:text="My Classes"
+                    android:textColor="#1A1A1A"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- OPTION 3 : All Students -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/optAllStudents"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="16dp"
+
+            app:cardElevation="1dp"
+            app:strokeColor="@color/bottom_nav_color"
+            app:cardBackgroundColor="@color/white"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:paddingHorizontal="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_all_border"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/student"
+                    />
+
+                <TextView
+                    android:layout_marginStart="14dp"
+                    android:text="My Attendence"
+                    android:textColor="#1A1A1A"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- OPTION 4 : Change Password -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/optChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="16dp"
+
+            app:cardElevation="1dp"
+            app:strokeColor="@color/bottom_nav_color"
+            app:cardBackgroundColor="@color/white"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:paddingHorizontal="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_all_border"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_password"
+                    />
+
+                <TextView
+                    android:layout_marginStart="14dp"
+                    android:text="Change Password"
+                    android:textColor="#1A1A1A"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- OPTION 5 : Notification Switch -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/optNotification"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeColor="@color/bottom_nav_color"
+            app:cardBackgroundColor="@color/white"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="18dp"
+                android:background="@drawable/round_all_border"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Notifications"
+                    android:textColor="#1A1A1A"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:id="@+id/switchNotification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/optDeleteAccount"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/bottom_nav_color">
+
+            <LinearLayout
+                android:paddingHorizontal="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_all_border"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/logout"/>
+
+                <TextView
+                    android:layout_marginStart="14dp"
+                    android:text="Delete Account"
+                    android:textColor="#D9534F"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ivLogout"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeWidth="1dp"
+            android:layout_marginTop="10dp"
+            app:strokeColor="#F8C6C6">
+
+            <LinearLayout
+                android:paddingHorizontal="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_all_border"
+                android:gravity="center"
+                >
+
+
+                <TextView
+                    android:layout_marginStart="14dp"
+                    android:text="Logout "
+                    android:textColor="#D9534F"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xml:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/markmyattendence"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/markmyattendence"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Markmyattendence">
+        <activity
+            android:name=".student.ClassDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacher.ClassDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatUI.ChatUiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".notificationUI.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StartUI.RoleSelectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StartUI.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacher.TeacherHomeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".student.StudentHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StartUI.SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StartUI.LoginActivity"
+            android:exported="false" /> <!-- Splash should start first -->
+        <activity
+            android:name=".StartUI.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- MainActivity (NO launcher tag) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

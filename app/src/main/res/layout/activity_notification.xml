@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:background="@color/screen_bg"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    tools:context=".notificationUI.NotificationActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EDEFFA"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="14dp"
+        android:gravity="center_vertical"
+
+
+        android:orientation="horizontal"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Notifications"
+            android:textColor="@color/mainColor"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/left" />
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/mainColor"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutCompat"/>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tlLayoutNotifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/design_default_color_primary_dark"
+        app:tabSelectedTextColor="@color/design_default_color_primary_dark"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutCompat"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/notificationtopbar"
+        android:layout_marginTop="15dp"
+        app:tabMode="fixed"
+        app:tabGravity="fill"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainernotifi"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tlLayoutNotifi"
+        android:padding="16dp" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

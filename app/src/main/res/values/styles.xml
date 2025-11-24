@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ChipDay" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipCornerRadius">12dp</item>
+        <item name="chipMinHeight">36dp</item>
+        <item name="chipBackgroundColor">#FF9800</item>
+        <item name="android:textColor">#8BC34A</item>
+    </style>
+
+    <style name="NoIndicator">styles</style> <style name="Widget.BottomNavigationView.NoIndicator" parent="@style/Widget.Material3.BottomNavigationView">
+    <item name="android:stateListAnimator">@null</item>
+</style>
+    <style name="CalenderHeaderDarkText" parent="android:TextAppearance.DeviceDefault.Medium">
+        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+        <style name="CalendarHeaderBlackText">
+            <item name="android:textColor">@color/black</item>
+            <item name="android:textSize">18sp</item>
+            <item name="android:textStyle">bold</item>
+        </style>
+
+    <style name="CalenderHeaderBlackText" parent="android:TextAppearance.DeviceDefault.Medium">
+        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ModernDialog" parent="@style/Theme.Material3.Light.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
+    <style name="CalenderWeekDayBlueText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalenderDateBlackText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+</resources>

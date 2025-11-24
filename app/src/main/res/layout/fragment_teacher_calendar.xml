@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="#EFEEEE"
+   >
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_round_corner_new"
+        android:paddingStart="16dp"
+
+        android:text="My Class shedule"
+        android:textColor="#FFFFFF"
+        android:paddingVertical="16dp"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+    <!-- Calendar View (Month View) -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="#EDEFFA">
+        <CalendarView
+            android:id="@+id/calendarViewSchedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:firstDayOfWeek="2"
+            android:layout_marginTop="0dp"
+            android:background="@android:color/transparent"
+
+            android:focusedMonthDateColor="@color/black"
+            android:unfocusedMonthDateColor="@color/black"
+
+            android:selectedDateVerticalBar="@color/mainColor"
+
+            android:weekDayTextAppearance="@style/CalenderWeekDayBlueText"
+            android:dateTextAppearance="@style/CalenderDateBlackText"
+
+            android:headerMonthTextAppearance="@style/CalendarHeaderBlackText"
+            />
+    </androidx.cardview.widget.CardView>
+
+
+
+
+    <!-- Selected Date Schedule Title -->
+    <TextView
+        android:id="@+id/textViewDailyScheduleHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="16dp"
+        tools:text="Schedule for Monday, 24 Nov"
+        android:textColor="@color/mainColor"
+        android:textSize="18sp"
+        android:paddingStart="4dp"
+        android:textStyle="bold" />
+
+    <!-- Daily Class Schedule List (RecyclerView) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewDailySchedule"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="70dp"
+        tools:listitem="@layout/item_class_schedule"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <!-- You would typically define 'mainColor' and the text styles in your colors.xml and styles.xml -->
+    <!-- Assuming 'mainColor' is the blue color you used previously -->
+
+</LinearLayout>
