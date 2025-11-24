@@ -32,3 +32,5 @@ Performance Optimization: Ongoing efforts to optimize the codebase, focusing on 
 Clone my replo : https://github.com/Sarim2022/markme.git
 
 connect me : Sarimhasan2022@gmail.com
+
+Apk file (Android app only): https://drive.google.com/file/d/1ZjlCN7mTzl-X1mxGA1SdZC_nNRVSGPH8/view?usp=drivesdk   ⚠️not work in ios 
