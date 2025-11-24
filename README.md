@@ -11,6 +11,14 @@ college premises, strictly controlled by the teacher's ability to activate atten
 is officially in session. With timely reminders and detailed reporting features, MarkMyAttendence aims to 
 enhance punctuality, streamline administrative tasks, and improve overall classroom engagement.
 
+Tools & Technologies Used
+Front-end/Logic: Kotlin and Java (for Android development).
+User Interface: XML (Layouts).
+Backend/Database: Firebase Firestore and Firebase Authentication.
+Notifications: Firebase Cloud Messaging (FCM).
+Location: Android Location API (for GPS and geo-fencing calculations).
+Optimization: ChatGPT/AI (code refinement and best practices).
+Android Studio
 
 🚀 Future Scope & Enhancements
 These features represent the next phases of development for the MarkMyAttendence application.
@@ -22,4 +30,5 @@ Performance Optimization: Ongoing efforts to optimize the codebase, focusing on 
 
 
 Clone my replo : https://github.com/Sarim2022/markme.git
+
 connect me : Sarimhasan2022@gmail.com
