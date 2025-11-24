@@ -31,6 +31,8 @@ Performance Optimization: Ongoing efforts to optimize the codebase, focusing on 
 
 Clone my replo : https://github.com/Sarim2022/markme.git
 
+Join project for future enhancement : https://www.notion.so/final-project-2b1a208a8beb8002bc25e29b2f62ed75?source=copy_link
+
 connect me : Sarimhasan2022@gmail.com
 
 Apk file (Android app only): https://drive.google.com/file/d/1ZjlCN7mTzl-X1mxGA1SdZC_nNRVSGPH8/view?usp=drivesdk   ⚠️not work in ios 
