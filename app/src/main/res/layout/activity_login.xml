@@ -45,22 +45,28 @@
             android:textColorHint="@color/black"
             android:textSize="13sp" />
 
-        <EditText
-            android:id="@+id/etPassword"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
             android:layout_marginHorizontal="5dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_edittext_outline"
-            android:drawablePadding="12dp"
-            android:fontFamily="monospace"
-            android:hint="@string/enter_password"
-            android:inputType="textEmailAddress"
-            android:paddingHorizontal="16dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="13sp" />
+            android:layout_marginTop="20dp">
 
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_edittext_outline"
+                android:drawablePadding="12dp"
+                android:fontFamily="monospace"
+                android:hint="@string/enter_password"
+                android:inputType="textPassword"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="13sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
             android:id="@+id/tvForgot"
 

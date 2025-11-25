@@ -38,6 +38,6 @@ data class ClassModel(
     val classCodeUid: String = "",
 
     val studentJoined: List<String> = emptyList(), // Stores UIDs of joined students
-    val requestStudent: List<String> = emptyList() // Stores UIDs of students who requested to join
+    val requestStudent: List<String> = emptyList(), // Stores UIDs of students who requested to join
 
 )

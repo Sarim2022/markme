@@ -23,12 +23,6 @@ class ChatUiActivity : AppCompatActivity() {
     }
     override fun finish() {
         super.finish()
-        // The reverse transition of how you opened it:
-        // Current (Notification) Activity exits to the right (slide_out_right)
-        // Previous Activity enters from the left (slide_in_left)
-        // NOTE: The arguments are the NEW Activity's enter and exit animations.
-        // When finishing, the first arg is the previous activity's ENTER animation,
-        // and the second arg is the current activity's EXIT animation.
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp"
+    android:background="@color/white"
+    android:layout_marginBottom="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_chat_avatar"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="centerCrop"
+            android:background="#E0E0E0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:src="@tools:sample/avatars"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/iv_chat_avatar"
+            app:layout_constraintEnd_toStartOf="@id/tv_last_message_time"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tv_chat_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="CS 101 - Intro to Programming"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_last_message_snippet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="You: Okay, I will send the assignment later today."
+                android:textColor="#757575"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_last_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="10:05 AM"
+            android:textSize="12sp"
+            android:textColor="#9E9E9E"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+<!--        <com.google.android.material.badge.BadgeDrawable-->
+<!--            android:id="@+id/badge_unread_count"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            app:badgeTextColor="@color/white"-->
+<!--            app:badgeBackgroundColor="@color/mainColor"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tv_last_message_time"-->
+<!--            tools:text="3"-->
+<!--            android:visibility="visible"-->
+<!--            tools:visibility="visible"/>-->
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="68dp"
+            android:background="#F0F0F0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -250,7 +250,7 @@
     <!-- NEW: Placeholder for "No Classes Yet" -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvClasses"
-        android:paddingHorizontal="15dp"
+        android:paddingHorizontal="5dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -267,7 +267,7 @@
         android:textColor="#888888"
         android:textSize="18sp"
         android:textStyle="italic"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

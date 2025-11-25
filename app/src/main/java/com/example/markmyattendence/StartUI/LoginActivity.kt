@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var binding: ActivityLoginBinding
     companion object {
-        private const val TAG = "LoginActivityTag" // Or whatever you named it
+        private const val TAG = "LoginActivityTag"
     }
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 9001
@@ -62,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
             signInWithGoogle()
         }
 
-        // Ensure you have a TextView/Button with id 'tvForgot' in your layout
         binding.tvForgot.setOnClickListener {
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
@@ -124,16 +123,13 @@ class LoginActivity : AppCompatActivity() {
                     val user = auth.currentUser ?: return@addOnSuccessListener
                     val uid = user.uid
 
-                    Toast.makeText(this, "----1----", Toast.LENGTH_LONG).show()
 
                     if (role == "student") {
-                        Toast.makeText(this, "----2----", Toast.LENGTH_LONG).show()
                         val intent = Intent(this, StudentHomeActivity::class.java)
                         startActivity(intent)
                         finish()
 
                     } else if (role == "teacher") {
-                        Toast.makeText(this, "Login successful! Welcome teacher.", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, TeacherHomeActivity::class.java))
                         finish()
                     } else {
@@ -142,7 +138,6 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                 } else {
-                    // NEW User: User is authenticated via Google but needs to select role/complete profile
                     Toast.makeText(this, "Please select your role.", Toast.LENGTH_LONG).show()
                     startActivity(Intent(this, RoleSelectionActivity::class.java))
                 }
@@ -161,17 +156,13 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     if (user != null && !user.isEmailVerified) {
-                        // 1. User is signed in but email is NOT verified
                         Toast.makeText(this, "Login failed: Please verify your email address. A link has been sent to your inbox.", Toast.LENGTH_LONG).show()
 
-                        // 2. Resend verification email (optional, for convenience) and sign out the user
                         user.sendEmailVerification()
                         auth.signOut()
 
-                        // 3. Stop the login process here
                         return@addOnCompleteListener
                     }
-                    // --- END Verification Check ---
 
 
                     val uid = user?.uid
@@ -181,10 +172,8 @@ class LoginActivity : AppCompatActivity() {
                         db.collection("users").document(uid).get()
                             .addOnSuccessListener { document ->
 
-                                Toast.makeText(this, "login successful! Welcome.", Toast.LENGTH_LONG).show()
 
                                 val role = document.getString("role")
-                                Toast.makeText(this, "UID: ${uid}", Toast.LENGTH_SHORT).show()
                                 if (role == "student") {
 
                                     db.collection("users").document(uid).get()
@@ -202,10 +191,8 @@ class LoginActivity : AppCompatActivity() {
                                                     uid = uid
                                                 )
 
-                                                // Save to cache
                                                 AppCache.setStudentProfile(student)
 
-                                                // Go home
                                                 val intent = Intent(this, StudentHomeActivity::class.java)
                                                 startActivity(intent)
                                                 finish()
@@ -219,21 +206,20 @@ class LoginActivity : AppCompatActivity() {
                                 } else {
                                     // If role is missing, log the user out (safety net)
                                     auth.signOut()
-                                    Toast.makeText(this, "Login failed: Role not found in database.", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(this, "Login failed", Toast.LENGTH_LONG).show()
                                 }
                             }
                             .addOnFailureListener {
                                 // Handle Firestore fetch failure
                                 auth.signOut()
-                                Toast.makeText(this, "Login failed: Could not retrieve user data.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "Login failed", Toast.LENGTH_LONG).show()
                             }
                     } else {
                         // Should be unreachable if task.isSuccessful
-                        Toast.makeText(this, "Login failed: User object error.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Login failed", Toast.LENGTH_LONG).show()
                     }
 
                 } else {
-                    // Firebase authentication failed (wrong email/password)
                     Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                 }
             }

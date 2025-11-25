@@ -193,7 +193,8 @@ class TeacherHomeActivity : AppCompatActivity() {
                 repeatDays = repeatDays,
                 classCodeUid = uniqueCode,
                 studentJoined = emptyList(),
-                requestStudent = emptyList()
+                requestStudent = emptyList(),
+
             )
 
             // FIX: Correctly call the asynchronous save function with all parameters.

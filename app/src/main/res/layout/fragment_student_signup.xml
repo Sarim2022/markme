@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/white"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
@@ -11,104 +11,231 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="24dp">
+        android:paddingBottom="40dp">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
 
             android:gravity="center_horizontal">
 
 
 
-            <EditText
-                android:id="@+id/etName"
-                android:textColor="@color/black"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
-                android:textColorHint="#7E7B7B"
-                android:inputType="textPersonName"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Full Name"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/etEmail"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
-                android:textColor="@color/black"
-                android:textColorHint="#7E7B7B"
-                android:inputType="textEmailAddress"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email Address"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-
-
-            <EditText
-                android:id="@+id/etCollegeName"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="College Name"
-                android:inputType="text"
-                android:textColorHint="#7E7B7B"
-                android:textColor="@color/black"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etCollegeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="College Name"
+                    android:inputType="textCapWords" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/etDepartment"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Department Name"
-                android:inputType="text"
-                android:textColorHint="#7E7B7B"
-                android:textColor="@color/black"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Department Name"
+                    android:inputType="textCapWords" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/etStudentID"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Student ID"
-                android:textColorHint="#7E7B7B"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etStudentID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Student ID / Roll Number"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/etPassword"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
-                android:textColor="@color/black"
-                android:inputType="textPassword"
-                android:textColorHint="#7E7B7B"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="10dp"
+                app:endIconMode="password_toggle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/etConfirmPassword"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mvPasswordPolicy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:hint="Confirm Password"
-                android:textColorHint="#7E7B7B"
-                android:inputType="textPassword"
-                android:background="@drawable/edittext_border"
-                android:padding="12dp" />
+                android:visibility="gone"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#F0F8FF" app:strokeWidth="1dp"
+                app:strokeColor="#ADD8E6"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Password must contain:"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="8dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginVertical="4dp">
+                        <ImageView
+                            android:id="@+id/ivLengthIcon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/tickgreen"
+                            android:contentDescription="Length status icon"
+                            app:tint="#D32F2F"/> <TextView
+                        android:id="@+id/tvLengthRule"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:textSize="14sp"
+                        android:text="At least 6 characters"
+                        android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginVertical="4dp">
+                        <ImageView
+                            android:id="@+id/ivSymbolIcon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/tickgreen"
+                            android:contentDescription="Symbol status icon"
+                            app:tint="#D32F2F"/>
+                        <TextView
+                            android:id="@+id/tvSymbolRule"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:textSize="14sp"
+                            android:text="At least one special symbol"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginVertical="4dp">
+                        <ImageView
+                            android:id="@+id/ivAlphaIcon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/tickgreen"
+                            android:contentDescription="Alphabet status icon"
+                            app:tint="#D32F2F"/>
+                        <TextView
+                            android:id="@+id/tvAlphaRule"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:textSize="14sp"
+                            android:text="Both uppercase and lowercase letters"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginVertical="4dp">
+                        <ImageView
+                            android:id="@+id/ivDigitIcon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/tickgreen"
+                            android:contentDescription="Digit status icon"
+                            app:tint="#D32F2F"/>
+                        <TextView
+                            android:id="@+id/tvDigitRule"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:textSize="14sp"
+                            android:text="At least one digit (0-9)"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:endIconMode="password_toggle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirm Password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </ScrollView>
