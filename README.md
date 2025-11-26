@@ -1,26 +1,20 @@
 📚 Introduction: MarkMyAttendence (Android app)
 
-MarkMyAttendence is a comprehensive, location-aware Android application designed to modernize and 
-simplify the process of marking, managing, and monitoring student attendance in educational institutions. 
-Built for both educators and students, it replaces traditional, often cumbersome, attendance methods 
-with a secure, real-time, and efficient digital solution. The platform features robust class management 
-tools for teachers, including unique class codes for secure student enrollment, automated chat group 
-creation for seamless communication, and a calendar view for schedule management. Crucially, it incorporates 
-a secure attendance mechanism that allows students to mark their presence both within and outside the 
-college premises, strictly controlled by the teacher's ability to activate attendance only when the class 
-is officially in session. With timely reminders and detailed reporting features, MarkMyAttendence aims to 
-enhance punctuality, streamline administrative tasks, and improve overall classroom engagement.
+**A smart attendance management system** where students can mark their attendance from home, inside the college, or in the classroom. Teachers receive attendance in real-time, verify students' presence manually or through auto-scan (location or proximity check), communicate with students, assign tasks, and download monthly attendance reports in PDF.
 
-Tools & Technologies Used
-Front-end/Logic: Kotlin and Java (for Android development).
-User Interface: XML (Layouts).
-Backend/Database: Firebase Firestore and Firebase Authentication.
+The app also includes chat features, notifications, and complete student profiles.
+
+## ****
 
 
-
+Tools & Technologies Used \n
+Front-end/Logic: Kotlin and Java (for Android development).\n
+User Interface: XML (Layouts).\n
+Backend/Database: Firebase Firestore and Firebase Authentication.\n
+Ui flow : eraser.io \n
 
 Clone my replo : https://github.com/Sarim2022/markme.git
 
-Join Eraser.io : https://app.eraser.io/workspace/nWIpS1AOnT9k31zraPnn?origin=share
+More about app : https://app.eraser.io/workspace/nWIpS1AOnT9k31zraPnn?origin=share
 
-connect me : Sarimhasan2022@gmail.com
+connect with me : https://www.instagram.com/sarimknowuh
