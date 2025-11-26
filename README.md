@@ -20,18 +20,11 @@ Location: Android Location API (for GPS and geo-fencing calculations).
 Optimization: ChatGPT/AI (code refinement and best practices).
 Android Studio
 
-🚀 Future Scope & Enhancements
-These features represent the next phases of development for the MarkMyAttendence application.
-🌟 Platform & Usability Enhancements
-iOS Version: Expand the application's reach by developing a native version for the iOS platform (iPhone/iPad).
-Dark Mode: Implement a Dark Mode theme across the application's UI to improve user comfort and save battery, especially in low-light environments.
-Flawless UI/UX: Continuous iteration on the user interface and user experience to ensure intuitive navigation and modern design standards.
-Performance Optimization: Ongoing efforts to optimize the codebase, focusing on fast load times, smooth transitions, and efficient data handling to make the application significantly faster.
 
 
 Clone my replo : https://github.com/Sarim2022/markme.git
 
-Join project for future enhancement : https://www.notion.so/final-project-2b1a208a8beb8002bc25e29b2f62ed75?source=copy_link
+Join Eraser.io : https://app.eraser.io/workspace/nWIpS1AOnT9k31zraPnn?origin=share
 
 connect me : Sarimhasan2022@gmail.com
 
