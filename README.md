@@ -12,11 +12,8 @@ is officially in session. With timely reminders and detailed reporting features,
 enhance punctuality, streamline administrative tasks, and improve overall classroom engagement.
 
 Tools & Technologies Used
-
 Front-end/Logic: Kotlin and Java (for Android development).
-
 User Interface: XML (Layouts).
-
 Backend/Database: Firebase Firestore and Firebase Authentication.
 
 
