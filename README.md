@@ -12,13 +12,13 @@ is officially in session. With timely reminders and detailed reporting features,
 enhance punctuality, streamline administrative tasks, and improve overall classroom engagement.
 
 Tools & Technologies Used
+
 Front-end/Logic: Kotlin and Java (for Android development).
+
 User Interface: XML (Layouts).
+
 Backend/Database: Firebase Firestore and Firebase Authentication.
-Notifications: Firebase Cloud Messaging (FCM).
-Location: Android Location API (for GPS and geo-fencing calculations).
-Optimization: ChatGPT/AI (code refinement and best practices).
-Android Studio
+
 
 
 
