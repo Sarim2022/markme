@@ -43,7 +43,6 @@ class TeacherHomeNavFragment : Fragment(), OnClassItemClickListener {
 
     override fun onResume() {
         super.onResume()
-        // Ensure user info is fetched and classes are loaded every time the fragment becomes visible
         val activity = activity
         if (activity is TeacherHomeActivity) {
             activity.fetchUserInfo(isInitialLoad = false)
@@ -65,7 +64,6 @@ class TeacherHomeNavFragment : Fragment(), OnClassItemClickListener {
         firestoreDB = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
-        // 💡 Initialize adapter here, BEFORE loadTeacherClasses
         classAdapter = ClassAdapter(emptyList(), this)
         binding.rvClasses.layoutManager = LinearLayoutManager(context)
         binding.rvClasses.adapter = classAdapter
@@ -111,8 +109,7 @@ class TeacherHomeNavFragment : Fragment(), OnClassItemClickListener {
 
 
     fun loadTeacherClasses() {
-        // Show loading indicator if you have one
-        // binding.progressBar.visibility = View.VISIBLE
+
 
         val currentTeacherUid = auth.currentUser?.uid
 
@@ -189,6 +186,17 @@ class TeacherHomeNavFragment : Fragment(), OnClassItemClickListener {
 
         intent.putExtra("CLASS_ID", classItem.classId)
         intent.putExtra("CLASS_NAME", classItem.className)
+
+        intent.putExtra("CLASS_ROOM", classItem.classroom) // Assuming ClassModel has a 'classroom' field
+        intent.putExtra("START_TIME", classItem.startTime)
+        intent.putExtra("END_TIME", classItem.endTime)
+        intent.putExtra("CLASS_CODE", classItem.classCodeUid)
+        intent.putExtra("AUTO_APPROVE", classItem.autoApprove) // Boolean
+        intent.putExtra("MAX_STUDENTS", classItem.maxStudents)
+        intent.putExtra("START_DATE", classItem.startDate)
+
+        intent.putStringArrayListExtra("REPEAT_DAYS", ArrayList(classItem.repeatDays))
+
 
         startActivity(intent)
         requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

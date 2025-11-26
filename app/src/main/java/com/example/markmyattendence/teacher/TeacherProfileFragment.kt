@@ -8,13 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import com.example.markmyattendence.StartUI.LoginActivity
+import com.example.markmyattendence.data.TeacherModel
 import com.example.markmyattendence.databinding.FragmentTeacherProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TeacherProfileFragment : Fragment() {
+// Inside TeacherProfileFragment.kt (after the class declaration)
 
+    // Import the necessary dependency: androidx.fragment.app.activityViewModels
+    private val viewModel: TeacherViewModel by activityViewModels()
     private lateinit var auth: FirebaseAuth
     private var _binding: FragmentTeacherProfileBinding? = null
     // This property is only valid between onCreateView and onDestroyView.
@@ -36,10 +41,29 @@ class TeacherProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. Fetch and Display Data (CORRECT LOCATION)
         fetchUserProfileData()
+        viewModel.teacherProfile.observe(viewLifecycleOwner) { teacherData ->
 
-        // 2. Setup Logout Listener
+            if (teacherData != null) {
+
+                // Display User Name
+                binding.tvUserName.text = teacherData.name ?: "N/A"
+
+                // Display User Email
+                binding.tvEmailUser.text = teacherData.email ?: "N/A"
+
+                // Log to confirm update
+                Log.d("ProfileFragment", "UI updated with data for: ${teacherData.name}")
+            }
+        }
+        initUi()
+    }
+    private fun initUi(){
+
+        binding.llMyInfo.setOnClickListener {
+            val intent = Intent(requireContext(), MyInfoActivity::class.java)
+            startActivity(intent)
+        }
         binding.ivLogout.setOnClickListener {
             auth.signOut()
             val intent = Intent(activity, LoginActivity::class.java)
@@ -49,48 +73,58 @@ class TeacherProfileFragment : Fragment() {
         }
     }
 
-    /**
-     * Fetches user data from Firestore and updates the UI.
-     */
-    // In your TeacherProfileFragment.kt
-
     private fun fetchUserProfileData() {
         val firebaseUser = auth.currentUser
         val userId = firebaseUser?.uid
 
         if (userId == null) {
             Log.e("ProfileFragment", "User not logged in or UID is null")
+            // Optional: Navigate to login screen
             return
         }
 
         val db = FirebaseFirestore.getInstance()
-        // Using "users" collection as per your screenshot
         val userRef = db.collection("users").document(userId)
 
         userRef.get()
             .addOnSuccessListener { document ->
-
-                // 🚨 Crucial Fix: Check if the view is still active before accessing binding
                 if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.STARTED)) {
                     if (document.exists()) {
-                        val name = document.getString("name")
-                        val email = document.getString("email")
+                        // 🔥 Crucial Step: Map the document to your data class
+                        val teacherData: TeacherModel? = document.toObject(TeacherModel::class.java)
 
-                        // Update the UI only if the view is active
-                        binding.tvUserName.text = name
-                        binding.tvEmailUser.text = email
+                        if (teacherData != null) {
+                            // 1. Store the data in the ViewModel/Repository for global access
+                            // This replaces the need to pass it via Intent later.
+                            viewModel.saveTeacherProfile(teacherData)
+
+                            // 2. Use the data class fields directly for UI updates
+                            binding.tvUserName.text = teacherData.name
+                            binding.tvEmailUser.text = teacherData.email
+
+                            // You can log the data to verify
+                            Log.d("ProfileFragment", "Profile loaded for: ${teacherData.name}")
+                        } else {
+                            Log.w(
+                                "ProfileFragment",
+                                "Document exists but failed to parse into TeacherModel."
+                            )
+                        }
+
                     } else {
                         Log.d("ProfileFragment", "No such document for UID: $userId")
                     }
                 } else {
-                    // Log if the data arrived but the view was already destroyed
-                    Log.d("ProfileFragment", "Data arrived but view was destroyed. Skipping UI update.")
+                    Log.d(
+                        "ProfileFragment",
+                        "Data arrived but view was destroyed. Skipping UI update."
+                    )
                 }
             }
             .addOnFailureListener { exception ->
-                // No need for lifecycle check here, as it's not a UI update crash
                 Log.w("ProfileFragment", "Error getting documents: ", exception)
-                Toast.makeText(requireContext(), "Failed to load profile data.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Failed to load profile data.", Toast.LENGTH_SHORT)
+                    .show()
             }
     }
 

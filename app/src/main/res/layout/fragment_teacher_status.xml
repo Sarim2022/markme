@@ -18,7 +18,8 @@
 
         android:text="Download Student Attendance Status"
         android:textColor="#FFFFFF"
-        android:paddingVertical="16dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="16dp"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -156,7 +157,15 @@
         app:tabSelectedTextColor="@color/mainColor"
         app:tabTextColor="#777" />
 
-    <!-- Students Recycler -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Student list : "
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="15dp"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewStudentAttendance"
         android:layout_width="match_parent"

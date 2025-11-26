@@ -13,14 +13,18 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:background="@drawable/bottom_round_corner_new"
         android:paddingStart="16dp"
 
-        android:text="My Class shedule"
         android:textColor="#FFFFFF"
-        android:paddingVertical="16dp"
-        android:textSize="26sp"
-        android:textStyle="bold" />
+        android:paddingTop="40dp"
+        android:paddingBottom="16dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        android:text="My Class shedule"
+         />
     <!-- Calendar View (Month View) -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

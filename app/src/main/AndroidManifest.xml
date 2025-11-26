@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Markmyattendence">
         <activity
+            android:name=".teacher.MyClassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacher.MyInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".student.ClassDetailsActivity"
             android:exported="false" />
         <activity

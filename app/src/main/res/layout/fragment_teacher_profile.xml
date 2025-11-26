@@ -88,6 +88,7 @@
             app:strokeWidth="1dp">
 
             <LinearLayout
+                android:id="@+id/llMyInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="16dp"
@@ -123,6 +124,7 @@
             app:strokeWidth="1dp">
 
             <LinearLayout
+                android:id="@+id/Myclasstv"
                 android:paddingHorizontal="18dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

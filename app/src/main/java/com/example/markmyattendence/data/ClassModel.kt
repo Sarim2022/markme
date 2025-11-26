@@ -13,8 +13,8 @@ data class ClassModel(
     @get:PropertyName("classroom")
     val classroom: String = "",
 
-    @get:PropertyName("startDate")
-    val date: String = "",
+
+    val startDate: String = "",
 
     @get:PropertyName("startTime")
     val startTime: String = "",
@@ -23,7 +23,7 @@ data class ClassModel(
     val endTime: String = "",
 
     @get:PropertyName("maxStudents")
-    val maxStudents: Int? = null, // Note: maxStudents is optional/nullable
+    val maxStudents: Int? = null,
 
     @get:PropertyName("autoApprove")
     val autoApprove: Boolean = true,

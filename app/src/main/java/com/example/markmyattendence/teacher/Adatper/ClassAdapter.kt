@@ -1,7 +1,7 @@
 package com.example.markmyattendence.teacher.Adatper
 
-// ... (existing imports)
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +12,10 @@ import com.example.markmyattendence.databinding.ClassCardLayoutBinding
 import com.example.markmyattendence.teacher.TeacherHomeNavFragment
 
 interface OnClassItemClickListener {
-    fun onClassClicked(classItem: ClassModel) // <-- ADD THIS METHOD
+    fun onClassClicked(classItem: ClassModel)
     fun onDeleteClicked(classId: String)
 }
-interface OnClassClickListener {
-    fun onClassClicked(classItem: ClassModel)
-}
 
-// 2. ADAPTER CONSTRUCTOR: Accept the listener
 class ClassAdapter(
     private var classList: List<ClassModel>,
     private val listener: TeacherHomeNavFragment
@@ -40,21 +36,46 @@ class ClassAdapter(
             // 1. BIND DATA TO VIEWS
             binding.tvClassName.text = classModel.className
             binding.tvClassroom.text = classModel.classroom
-            binding.tvRepeatDays.text = "Repeat: ${classModel.repeatDays.joinToString(", ")}"
+
             binding.tvClassTime.text = "${classModel.startTime} - ${classModel.endTime}"
             binding.tvClassCode.text = "Code: ${classModel.classCodeUid}"
+
+
+            binding.tvDate.text = "On ${classModel.startDate}"
 
             val approveStatusText = if (classModel.autoApprove) {
                 "Auto Approve: Yes"
             } else {
-                "Auto Approve: No"
+                "Auto Approve: Manual"
             }
-            binding.tvAutoApprove.text = approveStatusText
 
-            // 2. SET CLICK LISTENER CORRECTLY
-            // Set the click listener on the entire card/root view of the item (itemView)
+            binding.ivOptions.setOnClickListener {
+
+                val shareText = """
+        📘 Class Details
+        
+        Class Name: ${classModel.className}
+        Classroom: ${classModel.classroom}
+        Time: ${classModel.startTime} - ${classModel.endTime}
+        Date: On ${classModel.startDate}
+        Repeat Days: ${classModel.repeatDays.joinToString(", ")}
+        Students Allowed: ${classModel.maxStudents}
+        Auto Approve: ${if (classModel.autoApprove) "Yes" else "Manual"}
+        
+        Class Code: ${classModel.classCodeUid}
+        Join the class using this code!
+    """.trimIndent()
+
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, shareText)
+                }
+
+                val chooser = Intent.createChooser(intent, "Share Class Details")
+                itemView.context.startActivity(chooser)
+            }
+
             itemView.setOnClickListener {
-                // This calls the method we just implemented in the Fragment
                 listener.onClassClicked(classModel)
             }
         }
@@ -75,11 +96,6 @@ class ClassAdapter(
 
     override fun getItemCount(): Int = classList.size
 
-    // ... (updateList and removeItem functions remain the same)
-    /**
-     * Updates the adapter's data list and notifies the RecyclerView to refresh.
-     * We'll update this slightly to use a mutable list in the adapter for better deletion performance.
-     */
     fun updateList(newList: List<ClassModel>) {
         this.classList = newList.toMutableList() // Ensure the adapter holds a mutable list internally
         notifyDataSetChanged()

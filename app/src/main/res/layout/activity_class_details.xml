@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,148 +9,221 @@
     android:background="#F4F6F9"
     android:fitsSystemWindows="true">
 
-    <LinearLayout
-        android:id="@+id/clTopBar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_tab_rounded_corner_border_light"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="5dp"
-        android:gravity="center_vertical"
-        android:paddingVertical="15dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
-        android:layout_marginHorizontal="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent
-"
-        >
-        <ImageView
-            android:id="@+id/backbutton"
-            android:layout_width="30dp"
+        android:background="?attr/colorSurface"
+        android:elevation="0dp">
 
-            android:layout_height="30dp"
-            android:src="@drawable/left"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#EDEFFA">
 
-            />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvheaderInfo"
-            app:layout_constraintStart_toEndOf="@id/backbutton"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="My class intormation"
-            android:textStyle="bold"
-            android:textColor="@color/mainColor"
-            app:layout_constraintTop_toBottomOf="@id/backbutton"/>
+                <!-- Back Button -->
+                <ImageView
+                    android:id="@+id/backbutton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/left"
+                    app:tint="@color/mainColor"
+                    android:contentDescription="Back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="16dp"/>
 
-    </LinearLayout>
+                <!-- Center Title -->
+                <TextView
+                    android:id="@+id/tvHeaderInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Class Information"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardSummary"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        app:cardBackgroundColor="#C6E1F6"
-        android:layout_marginTop="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/clTopBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingBottom="80dp"  >
 
-            <TextView
-                android:id="@+id/tvDetailClassName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="BTech CSE Section A"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/tvDetailSchedule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                tools:text="Mon, Wed, Fri | 10:00 AM - 11:00 AM"
-                android:textSize="16sp"
-                android:textColor="#555" />
-
-            <TextView
-                android:id="@+id/tvDetailRoomCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                tools:text="Room: 305 | Code: XRTK45"
-                android:textSize="16sp"
-                android:textColor="#555" />
-
-            <TextView
-                android:id="@+id/btnStartClass"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSummary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:paddingVertical="10dp"
-                android:textColor="@color/mainColor"
-                android:textStyle="bold"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp">
 
-                android:text="Start Attendance"
-                android:background="@drawable/notificationtopbar"
-                />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="18dp"
+                    android:src="@drawable/edit"
+                    android:layout_gravity="end"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/infoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/tvDetailClassName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Mathematics - B.Tech"
+                        android:textSize="24sp"
+
+                        android:textStyle="bold"
+                        android:textColor="@color/mainColor" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#EEE"
+                        android:layout_marginVertical="12dp"/>
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:rowCount="4"
+                        android:alignmentMode="alignBounds"
+                        android:columnOrderPreserved="false">
+
+                        <TextView style="@style/DetailLabel" android:text="Time" />
+                        <TextView
+                            android:id="@+id/tvDetailTime"
+                            style="@style/DetailValue"
+                            android:textColor="@color/green"
+                            tools:text="12:27 AM - 1:27 AM" />
+
+                        <TextView style="@style/DetailLabel" android:text="Class Code" />
+                        <TextView
+                            android:id="@+id/tvDetailClassCode"
+                            style="@style/DetailValue"
+                            android:textColor="@color/green"
+                            tools:text="Y1PJU08" />
+
+                        <TextView style="@style/DetailLabel" android:text="Students" />
+                        <TextView
+                            android:id="@+id/tvDetailStudentsCount"
+                            style="@style/DetailValue"
+                            android:textColor="@color/green"
+                            tools:text="23 Students" />
+
+                        <TextView style="@style/DetailLabel" android:text="Approval" />
+                        <TextView
+                            android:id="@+id/tvDetailAutoApprove"
+                            style="@style/DetailValue"
+                            android:textColor="@color/green"
+                            tools:text="Manual" />
+
+                        <TextView style="@style/DetailLabel" android:text="Schedule" />
+                        <TextView
+                            android:id="@+id/tvDetailSchedule"
+                            style="@style/DetailValue"
+                            android:textColor="@color/green"
+                            tools:text="Monday, On Nov 28, 2025" />
+
+                    </GridLayout>
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="17dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/fabStartAttendance"
+                    android:layout_width="0dp"  android:layout_height="wrap_content"
+                    android:text="Start Attendance"
+                    android:textColor="@color/mainColor"
+                    android:textStyle="bold"
+                    android:gravity="center" android:paddingHorizontal="20dp"
+                    android:layout_weight="1"
+                    android:paddingVertical="15dp"
+                    android:background="@drawable/bg_tab_rounded_corner_border_light"
+                    />
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/fabDeleteDelete"
+                    android:layout_width="0dp"  android:layout_height="wrap_content"
+                    android:text="Delete class"
+                    android:textColor="@color/mainColor"
+                    android:textStyle="bold"
+                    android:gravity="center" android:layout_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="15dp"
+                    android:background="@drawable/bg_tab_rounded_corner_border_red"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvStudentsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enrolled Students"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewStudents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false"
+                tools:itemCount="5"
+
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.core.widget.NestedScrollView>
 
-    <TextView
-        android:id="@+id/tvStudentsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enrolled Students"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardSummary" />
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/recyclerViewStudents"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginHorizontal="16dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
 
-<!--        app:layout_constraintTop_toBottomOf="@id/tvStudentsTitle"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fabAction"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="16dp"-->
-<!--        app:srcCompat="@drawable/ic_add"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:contentDescription="Add Student" />-->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

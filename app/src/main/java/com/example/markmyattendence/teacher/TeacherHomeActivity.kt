@@ -166,7 +166,6 @@ class TeacherHomeActivity : AppCompatActivity() {
             val maxStudentsText = etMaxStudents.text.toString().trim()
             val autoApprove = switchAutoApprove.isChecked
 
-            // Get selected chip tags
             val selectedChipIds = chipGroupDays.checkedChipIds
             val repeatDays = selectedChipIds.mapNotNull { chipId ->
                 dialogView.findViewById<com.google.android.material.chip.Chip>(chipId)?.text?.toString()
@@ -185,7 +184,7 @@ class TeacherHomeActivity : AppCompatActivity() {
             val newClass = ClassModel(
                 className = className,
                 classroom = classroom,
-                date = startDate,
+                startDate = startDate,
                 startTime = startTime,
                 endTime = endTime,
                 maxStudents = maxStudents,

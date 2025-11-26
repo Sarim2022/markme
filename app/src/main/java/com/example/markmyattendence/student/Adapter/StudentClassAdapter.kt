@@ -19,7 +19,7 @@ class StudentClassAdapter(
             val ctx = binding.root.context
 
             binding.tvClassName.text = classModel.className
-            binding.tvSheduleDay.text = classModel.date
+            binding.tvSheduleDay.text = classModel.startDate
             binding.tvClassCode.text = classModel.classCodeUid
             binding.tvClassroom.text = ctx.getString(
                 R.string.classroom_format,
