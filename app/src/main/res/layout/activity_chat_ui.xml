@@ -60,7 +60,7 @@
             android:id="@+id/etCustomSearch"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:hint="Search classes or users"
+            android:hint="Search classes"
             android:drawablePadding="8dp"
             android:textColorHint="@color/black"
             android:textColor="@color/black"

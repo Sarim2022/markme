@@ -85,7 +85,8 @@ class ClassDetailsActivity : AppCompatActivity() {
             }
 
             // Setup delete button click listener
-            binding.fabDeleteDelete.setOnClickListener {
+            binding.fabDeleteDelete.setOnClickListener{
+                Toast.makeText(this, "Class deleted", Toast.LENGTH_SHORT).show()
                 showDeleteConfirmationDialog(classId, className)
             }
 

@@ -68,6 +68,10 @@ class TeacherHomeNavFragment : Fragment(), OnClassItemClickListener {
         binding.rvClasses.layoutManager = LinearLayoutManager(context)
         binding.rvClasses.adapter = classAdapter
 
+        binding.llActivateAttendance.setOnClickListener {
+            Toast.makeText(context, "Build soon !", Toast.LENGTH_SHORT).show()
+        }
+
         setupListeners()
 
         // 💡 Load classes immediately after setup

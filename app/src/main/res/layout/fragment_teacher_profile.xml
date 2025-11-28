@@ -231,6 +231,8 @@
             app:cardBackgroundColor="@color/white"
             app:strokeWidth="1dp">
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -239,8 +241,15 @@
                 android:background="@drawable/round_all_border"
                 android:weightSum="1">
 
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/bell"/>
+
                 <TextView
                     android:layout_width="0dp"
+                    android:layout_marginStart="14dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Notifications"
