@@ -1,15 +1,24 @@
 package com.example.markmyattendence.teacher
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.markmyattendence.R
-import com.example.markmyattendence.databinding.ActivityClassDetailsBinding // Ensure this import is correct
+import com.example.markmyattendence.databinding.ActivityClassDetailsBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ClassDetailsActivity : AppCompatActivity() {
 
     private val TAG = "ClassDetailsActivity"
     private lateinit var binding: ActivityClassDetailsBinding
+
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +84,11 @@ class ClassDetailsActivity : AppCompatActivity() {
                 // TODO: Implement logic to start the attendance session
             }
 
+            // Setup delete button click listener
+            binding.fabDeleteDelete.setOnClickListener {
+                showDeleteConfirmationDialog(classId, className)
+            }
+
             loadEnrolledStudents(classId)
 
         } else {
@@ -92,6 +106,59 @@ class ClassDetailsActivity : AppCompatActivity() {
         // database (e.g., Firebase/Firestore), and update the adapter.
 
         Log.d(TAG, "Starting student data load for Class ID: $classId")
+    }
+
+    private fun showDeleteConfirmationDialog(classId: String?, className: String?) {
+        if (classId.isNullOrEmpty()) {
+            Toast.makeText(this, "Error: Class ID not found", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Delete Class")
+            .setMessage("Are you sure you want to delete \"$className\"? This action cannot be undone and will remove all associated data.")
+            .setPositiveButton("Delete") { dialog, _ ->
+                deleteClassFromFirestore(classId, className)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun deleteClassFromFirestore(classId: String, className: String?) {
+        val currentTeacherUid = auth.currentUser?.uid
+
+        if (currentTeacherUid.isNullOrEmpty()) {
+            Toast.makeText(this, "Authentication error. Please log in again.", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val teacherRef = db.collection("users").document(currentTeacherUid)
+
+        // Use batch write to ensure atomicity
+        db.runBatch { batch ->
+            // Remove the class document
+            val classRef = db.collection("classes").document(classId)
+            batch.delete(classRef)
+
+            // Remove the classId from teacher's myClasses array
+            batch.update(teacherRef, "myClasses", FieldValue.arrayRemove(classId))
+        }
+        .addOnSuccessListener {
+            Toast.makeText(this, "\"$className\" deleted successfully!", Toast.LENGTH_SHORT).show()
+
+            // Navigate back to TeacherHomeActivity
+            val intent = Intent(this, TeacherHomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()
+        }
+        .addOnFailureListener { e ->
+            Log.e(TAG, "Error deleting class: $classId", e)
+            Toast.makeText(this, "Error deleting class: ${e.message}", Toast.LENGTH_LONG).show()
+        }
     }
 
     // Optional: Override for the share button if you implement it

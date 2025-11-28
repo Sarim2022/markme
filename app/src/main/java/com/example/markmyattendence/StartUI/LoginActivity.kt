@@ -123,6 +123,15 @@ class LoginActivity : AppCompatActivity() {
                     val user = auth.currentUser ?: return@addOnSuccessListener
                     val uid = user.uid
 
+                    // Set isActive = true for logged in user
+                    db.collection("users").document(uid)
+                        .update("isActive", true)
+                        .addOnSuccessListener {
+                            Log.d(TAG, "isActive set to true for user: $uid")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e(TAG, "Failed to set isActive: ${e.message}")
+                        }
 
                     if (role == "student") {
                         val intent = Intent(this, StudentHomeActivity::class.java)
@@ -199,6 +208,16 @@ class LoginActivity : AppCompatActivity() {
                                             }
                                         }
                                 } else if (role == "teacher") {
+                                    // Set isActive = true for teacher login
+                                    db.collection("users").document(uid)
+                                        .update("isActive", true)
+                                        .addOnSuccessListener {
+                                            Log.d(TAG, "isActive set to true for teacher: $uid")
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.e(TAG, "Failed to set isActive for teacher: ${e.message}")
+                                        }
+
                                     val intent = Intent(this,TeacherHomeActivity::class.java)
                                     startActivity(intent)
                                     finish()

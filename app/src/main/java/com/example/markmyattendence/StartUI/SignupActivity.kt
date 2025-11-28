@@ -89,7 +89,9 @@ class SignupActivity : AppCompatActivity(), OnSignupDataSubmit {
                 "teacherId" to teacherId,
                 "myClasses" to listOf<String>(),
                 "myStudent" to listOf<String>(),
-                "chatGroup" to  listOf<String>()
+                "chatGroup" to  listOf<String>(),
+                "notification" to false,
+                "isActive" to false
             )
 
             // Data save only happens if email verification link was successfully sent

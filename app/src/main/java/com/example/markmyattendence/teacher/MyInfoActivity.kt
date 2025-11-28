@@ -1,5 +1,9 @@
 package com.example.markmyattendence.teacher
 
+import android.content.Context
+import android.R
+import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -19,6 +23,7 @@ class MyInfoActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private val TAG = "MyInfoActivity"
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +32,11 @@ class MyInfoActivity : AppCompatActivity() {
 
         supportActionBar?.title = "My Information"
 
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("profile_prefs", Context.MODE_PRIVATE)
+
+        // Load profile image
+        loadProfileImage()
 
         viewModel.teacherProfile.observe(this) { teacherData ->
             if (teacherData != null) {
@@ -96,5 +106,22 @@ class MyInfoActivity : AppCompatActivity() {
         binding.tvTeacherId.text = teacher.teacherId
         binding.tvSubjectName.text = teacher.subject_Name
         binding.tvSubjectCode.text = teacher.subject_code
+    }
+
+    private fun loadProfileImage() {
+        val uriString = sharedPreferences.getString("profile_image_uri", null)
+        if (uriString != null) {
+            try {
+                val uri = Uri.parse(uriString)
+                binding.ivProfile.setImageURI(uri)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error loading profile image: ${e.message}")
+                // Reset to default if there's an error
+                binding.ivProfile.setImageResource(R.drawable.gallery_thumb)
+            }
+        } else {
+            // Show default placeholder
+            binding.ivProfile.setImageResource(R.drawable.gallery_thumb)
+        }
     }
 }

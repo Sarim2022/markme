@@ -24,16 +24,16 @@
 
 
     <!-- Profile image -->
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivProfile"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:padding="8dp"
-
         android:src="@drawable/profilepngx"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:shapeAppearanceOverlay="@style/CircularImageView" />
 
     <!-- Username -->
     <TextView
@@ -159,6 +159,7 @@
             app:strokeWidth="1dp">
 
             <LinearLayout
+                android:id="@+id/llAllStudents"
                 android:paddingHorizontal="18dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -195,6 +196,7 @@
             app:strokeWidth="1dp">
 
             <LinearLayout
+                android:id="@+id/llChangePassword"
                 android:paddingHorizontal="18dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -263,6 +265,7 @@
             app:strokeColor="@color/bottom_nav_color">
 
             <LinearLayout
+                android:id="@+id/llDeleteAccount"
                 android:paddingHorizontal="18dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

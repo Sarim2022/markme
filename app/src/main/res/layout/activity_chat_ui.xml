@@ -62,9 +62,11 @@
             android:layout_height="48dp"
             android:hint="Search classes or users"
             android:drawablePadding="8dp"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:background="@android:color/transparent"
+            android:background="@color/white"
             android:inputType="text" />
     </androidx.cardview.widget.CardView>
 
