@@ -36,7 +36,7 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchClassesFromFirestore()
-        // Initialize Views
+
         val tabLayoutAttendanceFilter = view.findViewById<TabLayout>(R.id.tabLayoutAttendanceFilter)
         tabLayoutDateRange = view.findViewById(R.id.tabLayoutDateRange)
         layoutCustomDateRange = view.findViewById(R.id.layoutCustomDateRange)

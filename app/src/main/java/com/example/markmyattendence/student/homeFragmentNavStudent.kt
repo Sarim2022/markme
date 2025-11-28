@@ -21,6 +21,7 @@ import com.example.markmyattendence.StartUI.SignupActivity
 import com.example.markmyattendence.data.ClassModel
 import com.example.markmyattendence.data.StudentData
 import com.example.markmyattendence.databinding.FragmentHomeNavStudentBinding
+import com.example.markmyattendence.notificationUI.NotificationActivity
 import com.example.markmyattendence.student.Adapter.StudentClassAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -60,7 +61,16 @@ class homeFragmentNavStudent : Fragment() {
                 retrieveAndStoreStudentData(it)
             }
         }
-
+        binding.ivNotification.setOnClickListener {
+            val intent = Intent(requireActivity(), StudentNotificationActivity::class.java)
+            startActivity(intent)
+            requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+        binding.ivChatUi.setOnClickListener {
+            val intent = Intent(requireActivity(), StudentChatActivity::class.java)
+            startActivity(intent)
+            requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
         setupRecyclerView()      // 1. Setup the list view
         fetchJoinedClassUids()   // 2. Start fetching the classes
 

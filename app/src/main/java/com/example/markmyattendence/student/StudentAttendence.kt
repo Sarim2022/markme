@@ -5,28 +5,57 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
 import com.example.markmyattendence.R
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import android.widget.ArrayAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import android.widget.Toast
 
-/**
- * A simple [Fragment] subclass.
- * Use the [StudentAttendence.newInstance] factory method to
- * create an instance of this fragment.
- */
-class StudentAttendence : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+import com.google.android.material.datepicker.MaterialDatePicker // Required for date pickers
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+class StudentAttendence : Fragment(R.layout.fragment_student_attendence) {
+
+    private lateinit var tabLayoutDateRange: TabLayout
+    private lateinit var layoutCustomDateRange: View
+    private lateinit var editTextFromDate: TextInputEditText
+    private lateinit var editTextToDate: TextInputEditText
+    private lateinit var autoCompleteClassSelector: AutoCompleteTextView
+
+    private val TAG = "StudentAttendenceFragment"
+
+    // Firebase instances
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val tabLayoutAttendanceFilter = view.findViewById<TabLayout>(R.id.tabLayoutAttendanceFilter)
+        tabLayoutDateRange = view.findViewById(R.id.tabLayoutDateRange)
+        layoutCustomDateRange = view.findViewById(R.id.layoutCustomDateRange)
+        editTextFromDate = view.findViewById(R.id.editTextFromDate)
+        editTextToDate = view.findViewById(R.id.editTextToDate)
+        autoCompleteClassSelector = view.findViewById(R.id.autoCompleteClassSelector)
+        tabLayoutAttendanceFilter.apply {
+            removeAllTabs()
+            // Note: In a real app, 'X', 'Y', 'Z' would be replaced by actual counts from data
+            addTab(newTab().setText("All (X)"))
+            addTab(newTab().setText("Present (Y)"))
+            addTab(newTab().setText("Absent (Z)"))
+        }
+        tabLayoutDateRange.apply {
+            removeAllTabs()
+            addTab(newTab().setText("Last 7 Days"))
+            addTab(newTab().setText("This Month"))
+            addTab(newTab().setText("Custom"))
         }
     }
 
