@@ -7,6 +7,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.example.markmyattendence.R
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import com.google.android.material.chip.ChipGroup
 import android.util.Log
@@ -14,6 +15,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.example.markmyattendence.StartUI.LoginActivity
@@ -49,6 +51,10 @@ class TeacherHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTeacherHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = Color.TRANSPARENT
+
 
         // 1. Load the container Fragment immediately
         loadFragment(TeacherHomeNavFragment.newInstance())

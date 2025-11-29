@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:paddingTop="@dimen/status_bar_height"
     android:background="#EFEEEE"
    >
 
@@ -79,10 +80,19 @@
         android:clipToPadding="false"
         android:paddingHorizontal="16dp"
         android:paddingBottom="70dp"
+        android:visibility="gone"
         tools:listitem="@layout/item_class_schedule"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    <!-- You would typically define 'mainColor' and the text styles in your colors.xml and styles.xml -->
-    <!-- Assuming 'mainColor' is the blue color you used previously -->
+<!--    if no class then visibiliy on for tvNoClassMessage-->
+    <TextView
+        android:id="@+id/tvNoClassMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No class"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:visibility="gone" />
 
 </LinearLayout>

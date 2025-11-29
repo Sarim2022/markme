@@ -248,12 +248,6 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
-    <!-- 1. CORRECTED RECYCLERVIEW ID -->
-
-    <!-- 2. LOADING INDICATOR ADDED -->
-
-
-    <!-- 3. CORRECTED NO CLASS TEXT ID -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewNav"
         android:layout_width="match_parent"

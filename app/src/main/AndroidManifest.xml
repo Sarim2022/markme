@@ -21,12 +21,7 @@
         <activity
             android:name=".student.StudentNotificationActivity"
             android:exported="false" />
-        <activity
-            android:name=".teacher.MyClassActivity"
-            android:exported="false" />
-        <activity
-            android:name=".teacher.MyInfoActivity"
-            android:exported="false" />
+
         <activity
             android:name=".teacher.MyClassSettingActivity"
             android:exported="false" />

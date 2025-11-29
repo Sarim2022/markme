@@ -17,7 +17,6 @@ class ClassSettingAdapter(
 
         fun bind(classModel: ClassModel) {
             binding.tvClassName.text = classModel.className
-            binding.tvClassroom.text = classModel.classroom
             binding.tvClassTime.text = "${classModel.startTime} - ${classModel.endTime}"
             binding.tvClassCode.text = "Code: ${classModel.classCodeUid}"
 
@@ -26,15 +25,12 @@ class ClassSettingAdapter(
             } else {
                 "Auto Approve: Manual"
             }
-            binding.tvAutoApprove.text = approveStatusText
 
-            binding.tvStartDate.text = "Starting: ${classModel.startDate}"
 
             val daysString = classModel.repeatDays.joinToString(", ")
-            binding.tvRepeatDays.text = "Days: $daysString"
+
 
             val maxStudentsText = classModel.maxStudents?.let { "Max Students: $it" } ?: "Max Students: Unlimited"
-            binding.tvMaxStudents.text = maxStudentsText
 
             binding.root.setOnClickListener {
                 onClassClick(classModel)

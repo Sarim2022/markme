@@ -100,10 +100,7 @@ class TeacherProfileFragment : Fragment() {
             openGalleryPicker()
         }
 
-        binding.llMyInfo.setOnClickListener {
-            val intent = Intent(requireContext(), MyInfoActivity::class.java)
-            startActivity(intent)
-        }
+
 
         binding.Myclasstv.setOnClickListener {
             val intent = Intent(requireContext(), MyClassSettingActivity::class.java)
@@ -357,6 +354,7 @@ class TeacherProfileFragment : Fragment() {
             .addOnFailureListener { e ->
                 Log.e("TeacherProfileFragment", "Error loading notification preference: ${e.message}")
             }
+
     }
 
     private fun updateNotificationPreference(enabled: Boolean) {

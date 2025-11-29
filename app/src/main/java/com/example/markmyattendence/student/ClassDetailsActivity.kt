@@ -27,22 +27,5 @@ class ClassDetailsActivity : AppCompatActivity() {
         // 2. Display the Data (using View Binding as an example)
         supportActionBar?.title = className ?: "My class information"
 
-        /* // Example using View Binding (replace with your actual binding object)
-        binding.tvClassNameHeader.text = className
-        binding.tvClassroomDisplay.text = classroom
-        binding.tvTimeDisplay.text = "$startTime - $endTime"
-        binding.tvCodeDisplay.text = classCode
-        binding.tvStudentsCountDisplay.text = "Students : $maxStudents"
-        binding.tvDateDisplay.text = "On $startDate"
-
-        val approveStatusText = if (autoApprove) "Auto Approve: Yes" else "Auto Approve: Manual"
-        binding.tvAutoApproveDisplay.text = approveStatusText
-
-        // Display repeat days
-        binding.tvRepeatDaysDisplay.text = repeatDays?.joinToString(", ") ?: "N/A"
-
-        // Use the classId to load Enrolled Students data
-        loadEnrolledStudents(classId)
-        */
     }
 }

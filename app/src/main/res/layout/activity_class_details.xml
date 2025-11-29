@@ -67,7 +67,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingBottom="80dp"  >
 
@@ -79,6 +79,7 @@
                 android:layout_marginTop="16dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="16dp"
+                app:strokeColor="@color/white"
                 app:cardElevation="3dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -167,20 +168,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="17dp"
                 android:layout_marginTop="12dp"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="4dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/fabStartAttendance"
-                    android:layout_width="0dp"  android:layout_height="wrap_content"
-                    android:text="Start Attendance"
-                    android:textColor="@color/mainColor"
-                    android:textStyle="bold"
-                    android:gravity="center" android:paddingHorizontal="20dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingVertical="15dp"
                     android:background="@drawable/bg_tab_rounded_corner_border_light"
-                    />
-
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="15dp"
+                    android:text="Start  Attendance"
+                    android:textColor="@color/mainColor"
+                    android:textStyle="bold" />
                 <View
                     android:layout_width="4dp"
                     android:layout_height="wrap_content"
@@ -189,16 +192,42 @@
 
                 <TextView
                     android:id="@+id/fabDeleteDelete"
-                    android:layout_width="0dp"  android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:text="Delete class"
                     android:textColor="@color/mainColor"
                     android:textStyle="bold"
-                    android:gravity="center" android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_weight="1"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="15dp"
                     android:background="@drawable/bg_tab_rounded_corner_border_red"
                     />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="4dp"
+                android:paddingVertical="13dp"
+                android:gravity="center"
+                android:background="@drawable/bg_tab_rounded_corner_border_light_green"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Go to class chat"
+                    android:textColor="@color/mainColor"
+                    android:textStyle="bold"
+                    />
+
+
+
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tvStudentsTitle"

@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F6F7FB"
-    tools:context=".teacher.TeacherProfileFragment">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:orientation="horizontal"
-        android:paddingTop="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="#F6F7FB"
 
+        android:fitsSystemWindows="true"
+        tools:context=".teacher.TeacherProfileFragment">
 
-    </LinearLayout>
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
     <!-- Profile image -->
     <com.google.android.material.imageview.ShapeableImageView
@@ -29,10 +23,11 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:padding="8dp"
-        android:src="@drawable/profilepngx"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+       app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/CircularImageView" />
 
     <!-- Username -->
@@ -76,40 +71,93 @@
 
         <!-- Each OPTION CARD -->
         <!-- OPTION 1 : My Info -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/optMyInfo"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginBottom="10dp"
-            app:cardElevation="1dp"
-            app:cardCornerRadius="16dp"
-            app:strokeColor="@color/bottom_nav_color"
-        app:cardBackgroundColor="@color/white"
-            app:strokeWidth="1dp">
 
-            <LinearLayout
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/llMyInfo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="16dp"
+                android:layout_height="wrap_content"
+               android:layout_marginBottom="10dp"
 
-                android:gravity="center_vertical">
+                app:cardCornerRadius="18dp"
+                app:strokeColor="#E0E0E0"
+                app:strokeWidth="1dp"
+                app:cardBackgroundColor="@color/white">
 
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/user"
-                   />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:text="My Info"
-                    android:textSize="16sp"
-                    android:textColor="#000000" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+
+                    <!-- Role -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Role: teacher"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:paddingVertical="3dp" />
+
+                    <!-- Phone -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Phone: 3134949"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:paddingVertical="3dp" />
+
+                    <!-- Subject -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Subject: Maths (MS701)"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:paddingVertical="3dp" />
+
+                    <!-- College Name -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="College: Jamia Hamdard"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:paddingVertical="3dp" />
+
+                    <!-- College ID -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="College ID: acsy67"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:paddingVertical="3dp" />
+
+                    <!-- Department -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Department: Btech"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:paddingVertical="3dp" />
+
+                    <!-- Teacher ID -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher ID: teue8"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:paddingVertical="3dp" />
+
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         <!-- OPTION 2 : My Classes -->
         <com.google.android.material.card.MaterialCardView
@@ -117,11 +165,12 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginBottom="10dp"
-            app:cardElevation="1dp"
+
             app:cardCornerRadius="16dp"
-            app:strokeColor="@color/bottom_nav_color"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="1dp"
             app:cardBackgroundColor="@color/white"
-            app:strokeWidth="1dp">
+            >
 
             <LinearLayout
                 android:id="@+id/Myclasstv"
@@ -152,11 +201,10 @@
             android:layout_height="55dp"
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="16dp"
-
-            app:cardElevation="1dp"
-            app:strokeColor="@color/bottom_nav_color"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="1dp"
             app:cardBackgroundColor="@color/white"
-            app:strokeWidth="1dp">
+            >
 
             <LinearLayout
                 android:id="@+id/llAllStudents"
@@ -189,11 +237,10 @@
             android:layout_height="55dp"
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="16dp"
-
-            app:cardElevation="1dp"
-            app:strokeColor="@color/bottom_nav_color"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="1dp"
             app:cardBackgroundColor="@color/white"
-            app:strokeWidth="1dp">
+          >
 
             <LinearLayout
                 android:id="@+id/llChangePassword"
@@ -226,10 +273,10 @@
             android:layout_height="55dp"
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="1dp"
-            app:strokeColor="@color/bottom_nav_color"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="1dp"
             app:cardBackgroundColor="@color/white"
-            app:strokeWidth="1dp">
+      >
 
 
 
@@ -269,7 +316,6 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="1dp"
             app:strokeWidth="1dp"
             app:strokeColor="@color/bottom_nav_color">
 
@@ -300,7 +346,6 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="1dp"
             app:strokeWidth="1dp"
             android:layout_marginTop="10dp"
             app:strokeColor="#F8C6C6">
@@ -326,3 +371,4 @@
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -102,9 +102,6 @@ class ClassDetailsActivity : AppCompatActivity() {
 
     // Example function signature for loading students
     private fun loadEnrolledStudents(classId: String) {
-        // TODO: This is where you would initialize your RecyclerView,
-        // fetch the list of students associated with 'classId' from your
-        // database (e.g., Firebase/Firestore), and update the adapter.
 
         Log.d(TAG, "Starting student data load for Class ID: $classId")
     }
@@ -162,22 +159,5 @@ class ClassDetailsActivity : AppCompatActivity() {
         }
     }
 
-    // Optional: Override for the share button if you implement it
-    // Note: You must add the ImageView/MenuItem for sharing in your XML/Toolbar setup
-    /*
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.class_details_menu, menu) // assuming you have a menu xml
-        return true
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_share -> {
-                // Call a function to share class details
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-    */
 }

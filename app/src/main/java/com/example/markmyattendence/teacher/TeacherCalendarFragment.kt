@@ -1,10 +1,13 @@
 package com.example.markmyattendence.teacher
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.CalendarView
 import android.widget.TextView
+import androidx.core.view.WindowCompat
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,17 +20,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class TeacherCalendarFragment : Fragment(R.layout.fragment_teacher_calendar) {
-
     private lateinit var calendarView: CalendarView
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewDailyScheduleHeader: TextView
-
-    // Firebase instances
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private var currentUserUid: String? = null
-
-    // Date formatters
     private val firestoreDateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.US)
     private val displayDateFormat = SimpleDateFormat("EEEE, dd MMM", Locale.US)
 
