@@ -1,19 +1,23 @@
 package com.example.markmyattendence.student
 
+import android.Manifest
 import android.app.AlertDialog
-import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
-import com.google.android.material.textfield.TextInputEditText
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import android.content.Intent
 import com.example.markmyattendence.R
 import com.example.markmyattendence.data.AppCache
 import androidx.core.widget.TextViewCompat
@@ -23,10 +27,15 @@ import com.example.markmyattendence.data.StudentData
 import com.example.markmyattendence.databinding.FragmentHomeNavStudentBinding
 import com.example.markmyattendence.notificationUI.NotificationActivity
 import com.example.markmyattendence.student.Adapter.StudentClassAdapter
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
+import com.journeyapps.barcodescanner.ScanIntentResult // If you are using an older dependency setup
 
 class homeFragmentNavStudent : Fragment() {
     private var _binding: FragmentHomeNavStudentBinding? = null
@@ -37,9 +46,36 @@ class homeFragmentNavStudent : Fragment() {
     private lateinit var adapter: StudentClassAdapter // Added adapter
     private val TAG = "StudentNavFragment"
 
+    // QR Scanner and Permission Launchers
+    private val qrScannerLauncher = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
+        if (result.contents == null) {
+            Toast.makeText(requireContext(), "QR Code scan cancelled", Toast.LENGTH_SHORT).show()
+        } else {
+            val qrCodeToken = result.contents
+            // Get the student's current class
+            getCurrentClassId { classId ->
+                if (classId != null) {
+                    markAttendance(qrCodeToken, auth.currentUser?.uid ?: "", classId)
+                } else {
+                    Toast.makeText(requireContext(), "Please select a class first", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+    private lateinit var requestCameraPermissionLauncher: ActivityResultLauncher<String>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize Camera Permission Request Launcher
+        requestCameraPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                launchQrScanner()
+            } else {
+                Toast.makeText(requireContext(), "Camera permission is required to scan QR codes", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onCreateView(
@@ -83,7 +119,9 @@ class homeFragmentNavStudent : Fragment() {
             binding.llActivateAttendance.postDelayed({
                 binding.llActivateAttendance.background = defaultBackground
             }, 300)
-            // TODO: Implement attendance logic here
+
+            // Check camera permission and launch QR scanner
+            checkCameraPermissionAndLaunchScanner()
         }
 
         binding.tvJoinNut.setOnClickListener {
@@ -327,6 +365,228 @@ class homeFragmentNavStudent : Fragment() {
         binding.tvUserSubjectCode.text = data.studentId
 
         fetchJoinedClassUids()
+    }
+
+    // --- QR SCANNER FUNCTIONS ---
+
+    private fun checkCameraPermissionAndLaunchScanner() {
+        when {
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED -> {
+                // Permission already granted, launch scanner
+                launchQrScanner()
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.CAMERA) -> {
+                // Show explanation and request permission
+                Toast.makeText(requireContext(), "Camera permission is needed to scan QR codes for attendance", Toast.LENGTH_LONG).show()
+                requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+            else -> {
+                // Request permission directly
+                requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+        }
+    }
+
+    private fun launchQrScanner() {
+        val options = ScanOptions()
+        options.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
+        options.setPrompt("Scan the attendance QR code")
+        options.setCameraId(0)  // Use rear camera
+        options.setBeepEnabled(true)
+        options.setBarcodeImageEnabled(false)
+        options.setOrientationLocked(false)
+
+        qrScannerLauncher.launch(options)
+    }
+
+    private fun getCurrentClassId(callback: (String?) -> Unit) {
+        val studentUid = auth.currentUser?.uid
+        if (studentUid.isNullOrEmpty()) {
+            callback(null)
+            return
+        }
+
+        db.collection("users").document(studentUid)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    @Suppress("UNCHECKED_CAST")
+                    val joinedClassUids = document.get("joinedClasses") as? List<String> ?: emptyList()
+                    if (joinedClassUids.isNotEmpty()) {
+                        // Show class selection dialog
+                        showClassSelectionDialog(joinedClassUids, callback)
+                    } else {
+                        Toast.makeText(requireContext(), "You haven't joined any classes yet.", Toast.LENGTH_LONG).show()
+                        callback(null)
+                    }
+                } else {
+                    callback(null)
+                }
+            }
+            .addOnFailureListener {
+                Log.e(TAG, "Error fetching student classes: $it")
+                Toast.makeText(requireContext(), "Error loading classes. Please try again.", Toast.LENGTH_LONG).show()
+                callback(null)
+            }
+    }
+
+    private fun showClassSelectionDialog(classIds: List<String>, callback: (String?) -> Unit) {
+        // Get class details for display names
+        db.collection("classes")
+            .whereIn("classId", classIds.take(10)) // Firestore limit
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val classMap = mutableMapOf<String, String>() // classId -> displayName
+
+                querySnapshot.documents.forEach { doc ->
+                    val classId = doc.id
+                    val className = doc.getString("className") ?: "Unknown Class"
+                    val classroom = doc.getString("classroom") ?: ""
+                    val displayName = if (classroom.isNotEmpty()) "$className ($classroom)" else className
+                    classMap[classId] = displayName
+                }
+
+                // Create dialog with class options
+                val classNames = classIds.map { classMap[it] ?: "Unknown Class ($it)" }.toTypedArray()
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Select Class for Attendance")
+                    .setItems(classNames) { _, which ->
+                        val selectedClassId = classIds[which]
+                        callback(selectedClassId)
+                    }
+                    .setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.dismiss()
+                        callback(null)
+                    }
+                    .setCancelable(true)
+                    .show()
+            }
+            .addOnFailureListener {
+                Log.e(TAG, "Error fetching class details: $it")
+                // Fallback: show class IDs directly
+                val classNames = classIds.map { "Class ID: $it" }.toTypedArray()
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Select Class for Attendance")
+                    .setItems(classNames) { _, which ->
+                        val selectedClassId = classIds[which]
+                        callback(selectedClassId)
+                    }
+                    .setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.dismiss()
+                        callback(null)
+                    }
+                    .setCancelable(true)
+                    .show()
+            }
+    }
+
+    // --- ATTENDANCE MARKING LOGIC ---
+
+    private fun markAttendance(qrCodeToken: String, studentUid: String, classId: String) {
+        Log.d(TAG, "Marking attendance for student: $studentUid, class: $classId, token: $qrCodeToken")
+
+        // Step 1: Fetch the active attendance session for this class
+        db.collection("ActiveAttendanceSessions")
+            .document(classId)
+            .get()
+            .addOnSuccessListener { sessionDoc ->
+                if (!sessionDoc.exists()) {
+                    Toast.makeText(requireContext(), "No active attendance session found for this class", Toast.LENGTH_LONG).show()
+                    return@addOnSuccessListener
+                }
+
+                val sessionData = sessionDoc.data
+                val storedQrToken = sessionData?.get("qrCodeToken") as? String
+                val expiryTime = sessionData?.get("expiryTime") as? com.google.firebase.Timestamp
+
+                // Step 2: Validate the QR token and expiry time
+                if (storedQrToken != qrCodeToken) {
+                    Toast.makeText(requireContext(), "Invalid QR code. Please scan the correct code.", Toast.LENGTH_LONG).show()
+                    return@addOnSuccessListener
+                }
+
+                if (expiryTime == null || Timestamp.now().toDate().after(expiryTime.toDate())) {
+                    Toast.makeText(requireContext(), "QR code has expired. Please ask teacher to refresh.", Toast.LENGTH_LONG).show()
+                    return@addOnSuccessListener
+                }
+
+                // Step 3: Find the current attendance record (where sessionEnd is null)
+                findCurrentAttendanceRecord(classId) { recordId ->
+                    if (recordId == null) {
+                        Toast.makeText(requireContext(), "No active attendance session found.", Toast.LENGTH_LONG).show()
+                        return@findCurrentAttendanceRecord
+                    }
+
+                    // Step 4: Perform transaction to mark attendance
+                    performAttendanceTransaction(recordId, studentUid)
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error fetching active session: $e")
+                Toast.makeText(requireContext(), "Error connecting to server. Please try again.", Toast.LENGTH_LONG).show()
+            }
+    }
+
+    private fun findCurrentAttendanceRecord(classId: String, callback: (String?) -> Unit) {
+        // Query AttendanceRecords where classId matches and sessionEnd is null
+        db.collection("AttendanceRecords")
+            .whereEqualTo("classId", classId)
+            .whereEqualTo("sessionEnd", null)
+            .limit(1) // Should only be one active session at a time
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    val recordDoc = querySnapshot.documents.first()
+                    callback(recordDoc.id)
+                } else {
+                    callback(null)
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error finding current attendance record: $e")
+                callback(null)
+            }
+    }
+
+    private fun performAttendanceTransaction(recordId: String, studentUid: String) {
+        val recordRef = db.collection("AttendanceRecords").document(recordId)
+
+        db.runTransaction { transaction ->
+            // Get the current document
+            val snapshot = transaction.get(recordRef)
+            if (!snapshot.exists()) {
+                throw Exception("Attendance record not found")
+            }
+
+            // Check if student already marked attendance
+            val attendedStudents = snapshot.get("attendedStudents") as? Map<String, Timestamp> ?: emptyMap()
+            if (attendedStudents.containsKey(studentUid)) {
+                throw Exception("Attendance already marked")
+            }
+
+            // Add student to attendedStudents map
+            transaction.update(recordRef, "attendedStudents.$studentUid", Timestamp.now())
+        }
+        .addOnSuccessListener {
+            Log.d(TAG, "Attendance marked successfully for student: $studentUid")
+            Toast.makeText(requireContext(), "Attendance Marked Successfully!", Toast.LENGTH_LONG).show()
+        }
+        .addOnFailureListener { e ->
+            Log.e(TAG, "Error marking attendance: $e")
+            when (e.message) {
+                "Attendance already marked" -> {
+                    Toast.makeText(requireContext(), "You have already marked your attendance for this session.", Toast.LENGTH_LONG).show()
+                }
+                "Attendance record not found" -> {
+                    Toast.makeText(requireContext(), "Attendance session has ended or is no longer available.", Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    Toast.makeText(requireContext(), "Failed to mark attendance. Please try again.", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

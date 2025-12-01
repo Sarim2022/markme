@@ -21,7 +21,6 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
     // Lateinit for views we'll interact with in multiple methods
     private lateinit var tabLayoutDateRange: TabLayout
     private lateinit var layoutCustomDateRange: View
-    private lateinit var editTextFromDate: TextInputEditText
     private lateinit var editTextToDate: TextInputEditText
     private lateinit var autoCompleteClassSelector: AutoCompleteTextView
 
@@ -40,7 +39,7 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
         val tabLayoutAttendanceFilter = view.findViewById<TabLayout>(R.id.tabLayoutAttendanceFilter)
         tabLayoutDateRange = view.findViewById(R.id.tabLayoutDateRange)
         layoutCustomDateRange = view.findViewById(R.id.layoutCustomDateRange)
-        editTextFromDate = view.findViewById(R.id.editTextFromDate)
+
         editTextToDate = view.findViewById(R.id.editTextToDate)
         autoCompleteClassSelector = view.findViewById(R.id.autoCompleteClassSelector)
 
@@ -62,11 +61,8 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
             removeAllTabs()
             addTab(newTab().setText("Last 7 Days"))
             addTab(newTab().setText("This Month"))
-            addTab(newTab().setText("Custom"))
+
         }
-
-
-        setupDatePickers()
 
         // Date Selection Listener
         tabLayoutDateRange.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -135,49 +131,7 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
         }
     }
 
-    /**
-     * Configures the click listeners for the 'From Date' and 'To Date' fields
-     * to open the MaterialDatePicker.
-     */
-    private fun setupDatePickers() {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
-        // From Date Picker
-        editTextFromDate.setOnClickListener {
-            showDatePicker(
-                onDateSelected = { dateInMillis ->
-                    editTextFromDate.setText(dateFormat.format(Date(dateInMillis)))
-                    // Trigger data fetch or validation logic here
-                }
-            )
-        }
-
-        // To Date Picker
-        editTextToDate.setOnClickListener {
-            showDatePicker(
-                onDateSelected = { dateInMillis ->
-                    editTextToDate.setText(dateFormat.format(Date(dateInMillis)))
-                    // Trigger data fetch or validation logic here
-                }
-            )
-        }
-    }
-
-    /**
-     * Helper function to show a Material Date Picker.
-     */
-    private fun showDatePicker(onDateSelected: (Long) -> Unit) {
-        val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select date")
-            .build()
-
-        datePicker.addOnPositiveButtonClickListener { selection ->
-            onDateSelected(selection)
-        }
-
-        // Use childFragmentManager for Fragments
-        datePicker.show(childFragmentManager, "DATE_PICKER")
-    }
 
     companion object {
         /**
