@@ -16,6 +16,6 @@ Ui flow : eraser.io \n
 Clone my replo : https://github.com/Sarim2022/markme.git
 
 Download latest .apk (only for android ) : https://github.com/Sarim2022/markme/releases/download/v1.0.1/app-debug.apk
-More about app : https://app.eraser.io/workspace/nWIpS1AOnT9k31zraPnn?origin=share
+
 
 connect with me : https://www.instagram.com/sarimknowuh
