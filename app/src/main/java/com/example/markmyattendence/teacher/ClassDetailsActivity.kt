@@ -49,7 +49,7 @@ class ClassDetailsActivity : AppCompatActivity() {
         }
         val classId = intent.getStringExtra("CLASS_ID")
         binding.fabStartAttendance.setOnClickListener {
-            Toast.makeText(this, "Attendence start now !", Toast.LENGTH_SHORT).show()
+
             startAttendanceSession(classId.toString())
         }
 
@@ -154,26 +154,17 @@ class ClassDetailsActivity : AppCompatActivity() {
 
         val db = FirebaseFirestore.getInstance()
 
-        // 2. Generate the temporary session object
-        // This helper function creates the secure token, start time, and expiry time.
         val newSession = generateSessionData(classId, teacherUid)
 
-        // A. Write the session object to the 'ActiveAttendanceSessions' collection
         db.collection("ActiveAttendanceSessions")
-            .document(classId) // Use the Class ID as the document ID for easy retrieval
+            .document(classId)
             .set(newSession)
             .addOnSuccessListener {
-                // SUCCESS: The temporary session is active! Now create the permanent record shell.
-
-                // B. Prepare the unique ID for the 'AttendanceRecords' document
-                // Format: [classId]_[yyyyMMdd]_[HHmm]
                 val recordDateTimeFormat = SimpleDateFormat("yyyyMMdd_HHmm", Locale.US)
                 val recordId = "${classId}_${recordDateTimeFormat.format(newSession.startTime.toDate())}"
 
-                // Store the record ID for later use when ending the session
                 currentSessionRecordId = recordId
 
-                // C. Create the initial 'AttendanceRecords' document
                 val initialRecord = AttendanceRecord(
                     classId = classId,
                     date = SimpleDateFormat(
@@ -260,6 +251,7 @@ class ClassDetailsActivity : AppCompatActivity() {
             binding.qrCodeImageView.visibility = View.GONE
         }
     }
+
     private fun setupEnrolledStudentsRecyclerView() {
         enrolledStudentsAdapter = EnrolledStudentsAdapter()
         binding.recyclerViewStudents.apply {

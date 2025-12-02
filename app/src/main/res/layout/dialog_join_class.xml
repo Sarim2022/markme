@@ -48,7 +48,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:background="@color/white"
-            android:inputType="textCapCharacters"
             android:maxLength="8" />
 
     </com.google.android.material.textfield.TextInputLayout>

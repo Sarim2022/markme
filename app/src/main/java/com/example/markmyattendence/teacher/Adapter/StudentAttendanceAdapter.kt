@@ -10,18 +10,20 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.markmyattendence.R
 import com.example.markmyattendence.data.StudentAttendance
+import org.w3c.dom.Text
 
 class StudentAttendanceAdapter(private var studentList: List<StudentAttendance>) :
     RecyclerView.Adapter<StudentAttendanceAdapter.StudentViewHolder>() {
 
     class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameTextView: TextView = itemView.findViewById(R.id.textViewStudentName)
-        val statusTextView: TextView = itemView.findViewById(R.id.textViewAttendanceStatus)
+        val nameTextView: TextView = itemView.findViewById(R.id.nameTextView) // attendence_item
+
+        val statusTextView: TextView = itemView.findViewById(R.id.statusTextView)  // attendence_item
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_student_attendance, parent, false)
+            .inflate(R.layout.attendance_item, parent, false)
         return StudentViewHolder(view)
     }
 
@@ -31,16 +33,12 @@ class StudentAttendanceAdapter(private var studentList: List<StudentAttendance>)
 
         if (student.isPresent) {
             holder.statusTextView.text = "Present"
-            // Use holder.itemView.context to safely access context for colors
             holder.statusTextView.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
         } else {
             holder.statusTextView.text = "Absent"
             holder.statusTextView.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
         }
 
-        // 🛑 REMOVED THE INCORRECT LINE HERE:
-        // attendanceAdapter.updateList(finalAttendanceList)
-        // This logic belongs ONLY in the Fragment (TeacherStatusFragment.kt).
     }
 
     override fun getItemCount() = studentList.size
@@ -50,7 +48,10 @@ class StudentAttendanceAdapter(private var studentList: List<StudentAttendance>)
         studentList = newList.sortedBy { it.studentName }
         notifyDataSetChanged()
     }
-    // 🛑 NEW METHOD: Required by handleDownloadAttendance() in the Fragment
+
+
+
+
     fun getStudentList(): List<StudentAttendance> {
         return studentList
     }

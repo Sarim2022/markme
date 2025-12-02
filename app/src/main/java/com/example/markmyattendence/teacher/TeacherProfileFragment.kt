@@ -32,7 +32,6 @@ import kotlinx.coroutines.withContext
 
 class TeacherProfileFragment : Fragment() {
 
-    // ViewModel and Firebase
     private val viewModel: TeacherViewModel by activityViewModels()
     private lateinit var auth: FirebaseAuth
 
@@ -102,21 +101,21 @@ class TeacherProfileFragment : Fragment() {
 
 
 
-        binding.Myclasstv.setOnClickListener {
+        binding.optMyClasses.setOnClickListener {
             val intent = Intent(requireContext(), MyClassSettingActivity::class.java)
             startActivity(intent)
         }
 
-        binding.llAllStudents.setOnClickListener {
+        binding.optAllStudents.setOnClickListener {
             val intent = Intent(requireContext(), MyStudentListActivity::class.java)
             startActivity(intent)
         }
 
-        binding.llChangePassword.setOnClickListener {
+        binding.optChangePassword.setOnClickListener {
             showChangePasswordDialog()
         }
 
-        binding.llDeleteAccount.setOnClickListener {
+        binding.optDeleteAccount.setOnClickListener {
             showDeleteAccountConfirmationDialog()
         }
 

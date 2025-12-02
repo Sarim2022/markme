@@ -1,5 +1,8 @@
 package com.example.markmyattendence.teacher
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,15 +10,15 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.markmyattendence.R
 import com.example.markmyattendence.data.FileGenerator
-import com.example.markmyattendence.teacher.Adapter.StudentAttendanceAdapter
-
 import com.example.markmyattendence.data.StudentAttendance
-
+import com.example.markmyattendence.teacher.Adapter.StudentAttendanceAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -30,7 +33,6 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
 
     // Lateinit for views
     private lateinit var tabLayoutDateRange: TabLayout
-    private lateinit var tabLayoutDownloadFormat: TabLayout
     private lateinit var tabLayoutAttendanceFilter: TabLayout
     private lateinit var layoutCustomDateRange: View
     private lateinit var editTextFromDate: TextInputEditText
@@ -41,6 +43,16 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
     private lateinit var tvNodataStudent: TextView
 
     private val TAG = "TeacherStatusFragment"
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                // If permission is granted, proceed to generate the file
+                generateAttendancePdfReport()
+            } else {
+                // Permission denied
+                Toast.makeText(requireContext(), "Storage permission is required to save the PDF to Downloads.", Toast.LENGTH_LONG).show()
+            }
+        }
 
     // Firebase instances
     private val auth = FirebaseAuth.getInstance()
@@ -67,7 +79,6 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
         // Initialize Views
         tabLayoutAttendanceFilter = view.findViewById(R.id.tabLayoutAttendanceFilter)
         tabLayoutDateRange = view.findViewById(R.id.tabLayoutDateRange)
-        tabLayoutDownloadFormat = view.findViewById(R.id.tabLayoutDownloadFormat)
         layoutCustomDateRange = view.findViewById(R.id.layoutCustomDateRange)
         editTextFromDate = view.findViewById(R.id.editTextFromDate)
         editTextToDate = view.findViewById(R.id.editTextToDate)
@@ -86,7 +97,6 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
         // Setup Tabs
         setupAttendanceFilterTabs()
         setupDateRangeTabs()
-        setupDownloadFormatTabs()
 
         // Setup Date Pickers and Listeners
         setupDatePickers()
@@ -151,23 +161,7 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
         selectedEndDate = today
     }
 
-    private fun setupDownloadFormatTabs() {
-        tabLayoutDownloadFormat.apply {
-            removeAllTabs()
-            addTab(newTab().setText("PDF"))
-            addTab(newTab().setText("CSV"))
-        }
 
-        tabLayoutDownloadFormat.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                selectedDownloadFormat = tab?.text.toString()
-                Log.d(TAG, "Download Format Selected: $selectedDownloadFormat")
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
-        tabLayoutDownloadFormat.getTabAt(0)?.select() // Select PDF by default
-    }
 
     private fun setupDatePickers() {
         // From Date Picker
@@ -349,11 +343,11 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
             }
 
             if (matchesFilter) {
-                // 🛑 CORRECTED: Use the actual StudentAttendance data class
                 finalAttendanceList.add(
                     StudentAttendance(
                         studentUid = uid,
                         studentName = name,
+
                         isPresent = isPresent
                     )
                 )
@@ -393,33 +387,41 @@ class TeacherStatusFragment : Fragment(R.layout.fragment_teacher_status) {
             Toast.makeText(context, "Please select a class and date.", Toast.LENGTH_SHORT).show()
             return
         }
+        val safeContext = requireContext()
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q &&
+            ContextCompat.checkSelfPermission(
+                safeContext,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        } else {
+            generateAttendancePdfReport()
+        }
+    }
 
-        // Find the class name
-        val className = classNameToClassIdMap.entries.find { it.value == selectedClassId }?.key ?: "Class_Report"
+    private fun generateAttendancePdfReport() {
+        val className = classNameToClassIdMap.entries
+            .find { it.value == selectedClassId }?.key ?: "Class_Report"
+
         val dateString = formatDate(selectedStartDate!!)
-
-        // Get the data currently loaded in the adapter
-        val dataForDownload = attendanceAdapter.getStudentList() // Requires getStudentList() in Adapter
+        val dataForDownload = attendanceAdapter.getStudentList()
 
         if (dataForDownload.isEmpty()) {
             Toast.makeText(context, "No data available to download.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Use requireContext() for safe context access after checking for nulls
         val safeContext = requireContext()
 
-        when (selectedDownloadFormat) {
-            "PDF" -> {
-                // Call PDF generator (requires implementation in FileGenerator)
-                FileGenerator.generatePdf(safeContext, className, dateString, dataForDownload)
-            }
-            "CSV" -> {
-                // Call CSV generator (requires implementation in FileGenerator)
-                FileGenerator.generateCsv(safeContext, className, dateString, dataForDownload)
-            }
-        }
+        FileGenerator.generatePdf(
+            safeContext,
+            className,
+            dateString,
+            dataForDownload
+        )
     }
+
 
     companion object {
         @JvmStatic

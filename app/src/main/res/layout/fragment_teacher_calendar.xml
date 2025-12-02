@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#F3F6FA"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:paddingTop="@dimen/status_bar_height"
-    android:background="#EFEEEE"
+
    >
 
 
@@ -80,7 +81,7 @@
         android:clipToPadding="false"
         android:paddingHorizontal="16dp"
         android:paddingBottom="70dp"
-        android:visibility="gone"
+
         tools:listitem="@layout/item_class_schedule"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
