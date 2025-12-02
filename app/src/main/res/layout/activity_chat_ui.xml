@@ -60,14 +60,14 @@
             android:id="@+id/etCustomSearch"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:hint="Search classes"
+            android:background="@color/white"
             android:drawablePadding="8dp"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
+            android:hint="Search classes"
+            android:inputType="text"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:background="@color/white"
-            android:inputType="text" />
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -89,7 +89,7 @@ class homeFragmentNavStudent : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Load student profile data
+
         if (AppCache.studentProfile != null) {
             loadStudentDataToUI(AppCache.studentProfile!!)
         } else {
@@ -97,6 +97,7 @@ class homeFragmentNavStudent : Fragment() {
                 retrieveAndStoreStudentData(it)
             }
         }
+
         binding.ivNotification.setOnClickListener {
             val intent = Intent(requireActivity(), StudentNotificationActivity::class.java)
             startActivity(intent)
@@ -132,14 +133,24 @@ class homeFragmentNavStudent : Fragment() {
     // --- RECYCLERVIEW AND DATA FETCHING LOGIC ---
 
     private fun setupRecyclerView() {
-        // Initialize the adapter with an empty list and a click listener
-        adapter = StudentClassAdapter(emptyList()) { classModel ->
+        adapter = StudentClassAdapter(emptyList()) { classModel -> // classModel has the correct data!
 
-            val intent = Intent(context,ClassDetailsActivity::class.java)
+            val intent = Intent(context, MainActivityStudentHomeDetails::class.java)
+
+            // --- FIX: Use the classModel object to retrieve the specific data ---
+
+            // This is MANDATORY for the attendance query in the Canvas file
+            intent.putExtra("CLASS_ID", classModel.classId) // Assuming your model uses 'classId' as the field name
+
+            // These are used for setting the UI title/details
+            intent.putExtra("CLASS_NAME", classModel.className)
+            intent.putExtra("CLASS_ROOM", classModel.classroom)
+            intent.putExtra("START_TIME", classModel.startTime)
+            intent.putExtra("END_TIME", classModel.endTime)
+            intent.putExtra("CLASS_CODE", classModel.classCodeUid)
+
             Toast.makeText(requireContext(), "Opening class: ${classModel.className}", Toast.LENGTH_SHORT).show()
             startActivity(intent)
-
-
         }
         binding.recyclerViewNav.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewNav.adapter = adapter
@@ -438,6 +449,14 @@ class homeFragmentNavStudent : Fragment() {
             .addOnSuccessListener { querySnapshot ->
                 val classMap = mutableMapOf<String, String>() // classId -> displayName
 
+                // --- SUCCESS LISTENER: CRITICAL CHECK (Already Correctly Implemented) ---
+                if (!isAdded) {
+                    Log.w(TAG, "Fragment is detached, skipping context-dependent operation.")
+                    return@addOnSuccessListener
+                }
+                val safeContext = requireContext()
+                // ---------------------------------------------------------------------
+
                 querySnapshot.documents.forEach { doc ->
                     val classId = doc.id
                     val className = doc.getString("className") ?: "Unknown Class"
@@ -449,7 +468,7 @@ class homeFragmentNavStudent : Fragment() {
                 // Create dialog with class options
                 val classNames = classIds.map { classMap[it] ?: "Unknown Class ($it)" }.toTypedArray()
 
-                AlertDialog.Builder(requireContext())
+                AlertDialog.Builder(safeContext) // Use safeContext (which is requireContext())
                     .setTitle("Select Class for Attendance")
                     .setItems(classNames) { _, which ->
                         val selectedClassId = classIds[which]
@@ -462,13 +481,26 @@ class homeFragmentNavStudent : Fragment() {
                     .setCancelable(true)
                     .show()
             }
-            .addOnFailureListener {
-                Log.e(TAG, "Error fetching class details: $it")
+            .addOnFailureListener { exception ->
+                // --- FAILURE LISTENER: CRITICAL CHECK (New/Modified) ---
+                if (!isAdded) {
+                    Log.w(TAG, "Fragment detached during class details fetch failure. Skipping UI.")
+                    return@addOnFailureListener
+                }
+                val safeContext = requireContext()
+                // -------------------------------------------------------
+
+                Log.e(TAG, "Error fetching class details: $exception")
+
+                // Show error Toast
+                Toast.makeText(safeContext, "Error: ${exception.message}", Toast.LENGTH_LONG).show()
+
                 // Fallback: show class IDs directly
                 val classNames = classIds.map { "Class ID: $it" }.toTypedArray()
 
-                AlertDialog.Builder(requireContext())
-                    .setTitle("Select Class for Attendance")
+                // Show fallback dialog
+                AlertDialog.Builder(safeContext)
+                    .setTitle("Select Class for Attendance (Fallback)")
                     .setItems(classNames) { _, which ->
                         val selectedClassId = classIds[which]
                         callback(selectedClassId)
@@ -481,7 +513,6 @@ class homeFragmentNavStudent : Fragment() {
                     .show()
             }
     }
-
     // --- ATTENDANCE MARKING LOGIC ---
 
     private fun markAttendance(qrCodeToken: String, studentUid: String, classId: String) {

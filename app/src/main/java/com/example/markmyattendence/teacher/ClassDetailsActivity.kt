@@ -58,6 +58,9 @@ class ClassDetailsActivity : AppCompatActivity() {
             endAttendanceSession(classId.toString())
         }
 
+        binding.llChatWork.setOnClickListener {
+            Toast.makeText(this, "Working..", Toast.LENGTH_SHORT).show()
+        }
 
         val className = intent.getStringExtra("CLASS_NAME")
         val classroom = intent.getStringExtra("CLASS_ROOM")
@@ -118,10 +121,8 @@ class ClassDetailsActivity : AppCompatActivity() {
             loadEnrolledStudents(classId)
 
         } else {
-            // Handle case where required data (ID/Name) is missing
             Log.e(TAG, "Error: CLASS_ID or CLASS_NAME not found in Intent.")
-            // You might want to show a message to the user and close the activity
-            // finish()
+
         }
     }
 
@@ -130,8 +131,7 @@ class ClassDetailsActivity : AppCompatActivity() {
         val qrToken = UUID.randomUUID().toString() // Generates a unique secure token
         val startTime = Timestamp.now()
 
-        // Set expiry to 5 minutes from now (adjust as needed)
-        val expiryDate = Date(startTime.toDate().time + TimeUnit.MINUTES.toMillis(5))
+        val expiryDate = Date(startTime.toDate().time + TimeUnit.MINUTES.toMillis(30))
         val expiryTime = Timestamp(expiryDate)
 
         return ActiveAttendanceSession(

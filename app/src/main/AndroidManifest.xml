@@ -16,21 +16,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Markmyattendence">
         <activity
+            android:name=".student.MainActivityStudentHomeDetails"
+            android:exported="false" />
+        <activity
             android:name=".student.StudentChatActivity"
             android:exported="false" />
         <activity
             android:name=".student.StudentNotificationActivity"
             android:exported="false" />
-
         <activity
             android:name=".teacher.MyClassSettingActivity"
             android:exported="false" />
         <activity
             android:name=".teacher.MyStudentListActivity"
             android:exported="false" />
-        <activity
-            android:name=".student.ClassDetailsActivity"
-            android:exported="false" />
+
         <activity
             android:name=".teacher.ClassDetailsActivity"
             android:exported="false" />

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -5,17 +6,14 @@
     android:orientation="vertical"
     android:paddingBottom="20dp"
     android:fitsSystemWindows="true"
-    android:background="#F4F2F2"
->
+    android:background="#F4F2F2">
 
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="@drawable/bottom_round_corner_new"
         android:paddingStart="16dp"
-
         android:text="Download Student Attendance Status"
         android:textColor="#FFFFFF"
         android:paddingTop="40dp"
@@ -27,24 +25,71 @@
         android:id="@+id/tabLayoutDateRange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="16dp"
         android:background="@drawable/bg_tab_rounded_corner_border_light"
         android:padding="4dp"
         android:layout_marginTop="10dp"
         app:tabIndicatorColor="@color/mainColor"
         app:tabSelectedTextColor="@color/mainColor"
-
         app:tabTextColor="#777"/>
 
+    <LinearLayout
+        android:id="@+id/layoutCustomDateRange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="From Date"
+            app:boxCornerRadiusTopStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusBottomEnd="14dp" >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextFromDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:clickable="true"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="To Date"
+            app:boxCornerRadiusTopStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusBottomEnd="14dp" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextToDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:clickable="true"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/classSelectorLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-
         android:layout_marginTop="10dp"
         android:hint="Select Class"
         android:textColorHint="@color/black"
@@ -55,8 +100,8 @@
         app:boxCornerRadiusBottomStart="14dp"
         app:boxCornerRadiusBottomEnd="14dp"
         android:layout_marginHorizontal="16dp"
-        app:hintTextColor="@color/mainColor"
-        >
+        app:hintTextColor="@color/mainColor">
+
         <AutoCompleteTextView
             android:id="@+id/autoCompleteClassSelector"
             android:layout_width="match_parent"
@@ -66,9 +111,8 @@
             android:background="@drawable/bg_tab_rounded_corner_border_light"
             android:focusable="false"
             android:clickable="true" />
-
     </com.google.android.material.textfield.TextInputLayout>
-    <!-- Attendance Filter Tabs -->
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutAttendanceFilter"
         android:layout_width="match_parent"
@@ -77,9 +121,32 @@
         android:background="@drawable/bg_tab_rounded_corner_border_light"
         android:padding="4dp"
         android:layout_marginTop="10dp"
-
         app:tabSelectedTextColor="@color/mainColor"
         app:tabTextColor="#777" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Download Format : "
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="19dp"
+        android:textColor="@color/mainColor"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutDownloadFormat"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_tab_rounded_corner_border_light"
+        android:padding="4dp"
+        android:layout_marginTop="10dp"
+        app:tabIndicatorGravity="stretch"
+        app:tabIndicatorColor="@color/mainColor"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="@color/mainColor" />
+
 
     <TextView
         android:layout_width="match_parent"
@@ -100,9 +167,6 @@
         android:layout_marginTop="12dp"
         android:layout_weight="1" />
 
-
-
-    <!--   by defauly  no class  data then visibiliy on for tvNodataStudent-->
     <TextView
         android:id="@+id/tvNodataStudent"
         android:layout_width="match_parent"
@@ -120,15 +184,13 @@
         android:background="@drawable/cutombluedrounddownlaod"
         android:paddingVertical="18dp"
         android:text="Download Attendance"
-
-        android:layout_marginBottom="0dp"
+        android:layout_marginTop="16dp"
         android:textColor="#FFFFFF"
         android:layout_marginHorizontal="16dp"
         android:textStyle="bold"
-
         android:textAlignment="center"
         android:textAllCaps="false"
-       />
+        />
 
 
 </LinearLayout>
